@@ -21,15 +21,14 @@ pipeline{
             }
         }
         stage("Build Frontend") {
-            steps {
-                dir("frontend-prestabanco") {
-                    // Elimina `node_modules` e instala dependencias
-                    bat "rd /s /q node_modules" // En caso de que haya un `node_modules` roto
-                    bat "npm ci"
-                    bat "npm run build"  // Construye el frontend con Vite
+                    steps {
+                        dir("frontend-prestabanco") {
+                            // Instala dependencias y construye el frontend
+                            bat "npm install"
+                            bat "npm run build"  // Vite genera la carpeta 'dist' con la build
+                        }
+                    }
                 }
-            }
-        }
         stage("Build and Push Docker Image"){
             steps{
                 dir("monolitico"){
