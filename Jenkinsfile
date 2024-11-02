@@ -26,8 +26,6 @@ pipeline{
                             bat "rd /s /q node_modules" // En caso de que haya un `node_modules` roto
                             // Instala dependencias y construye el frontend
                             bat "npm install"
-                            bat "npm install axios"
-                            bat "npm install bootstrap"
                             bat "npm install react-router-dom"
                             bat "npm install @mui/material @emotion/react @emotion/styled"
                             bat "npm install @mui/icons-material"
@@ -40,11 +38,18 @@ pipeline{
                 dir("monolitico"){
                     script{
                          withDockerRegistry(credentialsId: 'docker-credentials' ){
-                            // Copia la build del frontend al directorio de backend para incluirla en la imagen Docker
-                            bat "xcopy /E /I frontend-prestabanco\\dist monolitico\\src\\main\\resources\\static"
                             // Construye y publica la imagen Docker
                             bat "docker build -t motihc/proyecto_prestabanco:latest ."
                             bat "docker push motihc/proyecto_prestabanco:latest"
+                        }
+                    }
+                }
+                dir("frontend-prestabanco"){
+                    script{
+                         withDockerRegistry(credentialsId: 'docker-credentials' ){
+                            // Construye y publica la imagen Docker
+                            bat "docker build -t motihc/proyecto_prestabancofront:latest ."
+                            bat "docker push motihc/proyecto_prestabancofront:latest"
                         }
                     }
                 }
