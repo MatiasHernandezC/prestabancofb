@@ -23,8 +23,9 @@ pipeline{
         stage("Build Frontend") {
                     steps {
                         dir("frontend-prestabanco") {
+                            bat "rd /s /q node_modules" // En caso de que haya un `node_modules` roto
                             // Instala dependencias y construye el frontend
-                            bat "npm ci"
+                            bat "npm install"
                             bat "npm run build"  // Vite genera la carpeta 'dist' con la build
                         }
                     }
