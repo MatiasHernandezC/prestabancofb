@@ -7,7 +7,7 @@ pipeline{
     stages{
         stage("Build JAR File"){
             steps{
-                checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/MatiasHernandezC/prestabanco.git']])
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/MatiasHernandezC/prestabanco.git']])
                 dir("monolitico"){
                     bat "mvn clean install"
                 }
