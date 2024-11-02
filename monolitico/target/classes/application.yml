@@ -1,0 +1,17 @@
+server:
+    port: 8090
+
+spring:
+    application:
+        name: proyecto_prestabanco
+    jpa:
+        show-sql: true
+        hibernate:
+            dialect: MySQL8Dialect
+            ddl-auto: create
+    datasource:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        dbname: prestabanco
+        url: jdbc:mysql://localhost:3306/prestabanco
+        username: root
+        password: user
