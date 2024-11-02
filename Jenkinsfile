@@ -24,7 +24,7 @@ pipeline{
                     steps {
                         dir("frontend-prestabanco") {
                             // Instala dependencias y construye el frontend
-                            bat "npm install"
+                            bat "npm ci"
                             bat "npm run build"  // Vite genera la carpeta 'dist' con la build
                         }
                     }
