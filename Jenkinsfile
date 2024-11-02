@@ -26,6 +26,8 @@ pipeline{
                             bat "rd /s /q node_modules" // En caso de que haya un `node_modules` roto
                             // Instala dependencias y construye el frontend
                             bat "npm install"
+                            bat "npm install axios"
+                            bat "npm install bootstrap"
                             bat "npm install react-router-dom"
                             bat "npm install @mui/material @emotion/react @emotion/styled"
                             bat "npm install @mui/icons-material"
