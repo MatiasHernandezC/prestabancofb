@@ -1,9 +1,10 @@
 import './App.css'
-import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'
+import {HashRouter as Router, Route, Routes} from 'react-router-dom'
 import Navbar from "./components/Navbar"
 import Home from './components/Home';
 import NotFound from './components/NotFound';
 import UserList from './components/UsersList';
+import LoansList from './components/LoansList';
 function App() {
 
   return (
@@ -13,6 +14,7 @@ function App() {
             <Routes>
               <Route path="/home" element={<Home/>} />
               <Route path="/user/list" element={<UserList/>} />
+              <Route path="/loans/list" element={<LoansList/>} />
               <Route path="*" element={<NotFound/>} />
               </Routes>
           </div>

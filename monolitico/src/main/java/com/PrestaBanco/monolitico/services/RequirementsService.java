@@ -10,27 +10,31 @@ import java.util.ArrayList;
 @Service
 public class RequirementsService {
     @Autowired
-    RequirementsRepository loanRepository;
+    RequirementsRepository requirementsRepository;
 
     public ArrayList<RequirementsEntity> getRequirementss(){
-        return (ArrayList<RequirementsEntity>) loanRepository.findAll();
+        return (ArrayList<RequirementsEntity>) requirementsRepository.findAll();
     }
 
     public RequirementsEntity saveRequirements(RequirementsEntity loan){
-        return loanRepository.save(loan);
+        return requirementsRepository.save(loan);
     }
 
     public RequirementsEntity getRequirementsById(Long id){
-        return loanRepository.findById(id).get();
+        return requirementsRepository.findById(id).get();
     }
 
     public RequirementsEntity updateRequirements(RequirementsEntity loan) {
-        return loanRepository.save(loan);
+        return requirementsRepository.save(loan);
+    }
+
+    public ArrayList<RequirementsEntity> getRequirementsByLoanName(String loanName) {
+        return (ArrayList<RequirementsEntity>) requirementsRepository.findByLoanName(loanName);
     }
 
     public boolean deleteRequirements(Long id) throws Exception {
         try{
-            loanRepository.deleteById(id);
+            requirementsRepository.deleteById(id);
             return true;
         } catch (Exception e) {
             throw new Exception(e.getMessage());

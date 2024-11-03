@@ -26,6 +26,11 @@ public class RequirementsController {
 		RequirementsEntity requirements = requirementsService.getRequirementsById(id);
 		return ResponseEntity.ok(requirements);
 	}
+	@GetMapping("/loanName/{loanName}")
+	public ResponseEntity<List<RequirementsEntity>> getRequirementsByLoanName(@PathVariable String loanName) {
+		List<RequirementsEntity> requirements = requirementsService.getRequirementsByLoanName(loanName);
+		return ResponseEntity.ok(requirements);
+	}
 
 	@PostMapping("/")
 	public ResponseEntity<RequirementsEntity> saveRequirements(@RequestBody RequirementsEntity requirements) {

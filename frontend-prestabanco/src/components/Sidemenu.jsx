@@ -15,6 +15,7 @@ import HailIcon from "@mui/icons-material/Hail";
 import MedicationLiquidIcon from "@mui/icons-material/MedicationLiquid";
 import MoreTimeIcon from "@mui/icons-material/MoreTime";
 import HomeIcon from "@mui/icons-material/Home";
+import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
 
 export default function Sidemenu({ open, toggleDrawer }) {
@@ -33,20 +34,22 @@ export default function Sidemenu({ open, toggleDrawer }) {
           <ListItemText primary="Home" />
         </ListItemButton>
 
-        <Divider />
-
+        <Divider textAlign="center">
+          <   Typography variant="subtitle1">Depuration Mode</Typography>
+        </Divider>
         <ListItemButton onClick={() => navigate("/user/list")}>
           <ListItemIcon>
             <PeopleAltIcon />
           </ListItemIcon>
           <ListItemText primary="Users" />
         </ListItemButton>
+        <Divider />
 
-        <ListItemButton onClick={() => navigate("/extraHours/list")}>
+        <ListItemButton onClick={() => navigate("/loans/list")}>
           <ListItemIcon>
             <MoreTimeIcon />
           </ListItemIcon>
-          <ListItemText primary="Horas Extra" />
+          <ListItemText primary="Préstamos Disponibles" />
         </ListItemButton>
 
         <ListItemButton onClick={() => navigate("/paycheck/list")}>
