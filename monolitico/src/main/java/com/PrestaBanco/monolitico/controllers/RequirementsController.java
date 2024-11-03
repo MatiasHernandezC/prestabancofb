@@ -27,8 +27,8 @@ public class RequirementsController {
 		return ResponseEntity.ok(requirements);
 	}
 	@GetMapping("/loanName/{loanName}")
-	public ResponseEntity<List<RequirementsEntity>> getRequirementsByLoanName(@PathVariable String loanName) {
-		List<RequirementsEntity> requirements = requirementsService.getRequirementsByLoanName(loanName);
+	public ResponseEntity<List<String>> getRequirementsByLoanName(@PathVariable String loanName) {
+		List<String> requirements = requirementsService.getRequirementsByLoanName(loanName);
 		return ResponseEntity.ok(requirements);
 	}
 

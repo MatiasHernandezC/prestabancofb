@@ -28,8 +28,12 @@ public class RequirementsService {
         return requirementsRepository.save(loan);
     }
 
-    public ArrayList<RequirementsEntity> getRequirementsByLoanName(String loanName) {
-        return (ArrayList<RequirementsEntity>) requirementsRepository.findByLoanName(loanName);
+    public ArrayList<String> getRequirementsByLoanName(String loanName) {
+        ArrayList<String> nombres = new ArrayList<String>();
+        for (RequirementsEntity requirements : requirementsRepository.findByLoanName(loanName)) {
+            nombres.add(requirements.getLoanName());
+        }
+        return nombres;
     }
 
     public boolean deleteRequirements(Long id) throws Exception {
