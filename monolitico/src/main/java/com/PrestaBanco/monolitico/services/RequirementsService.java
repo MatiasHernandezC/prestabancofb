@@ -31,7 +31,7 @@ public class RequirementsService {
     public ArrayList<String> getRequirementsByLoanName(String loanName) {
         ArrayList<String> nombres = new ArrayList<String>();
         for (RequirementsEntity requirements : requirementsRepository.findByLoanName(loanName)) {
-            nombres.add(requirements.getLoanName());
+            nombres.add(requirements.getType());
         }
         return nombres;
     }

@@ -69,13 +69,13 @@ const LoanList = () => {
               Plazo Máximo
             </TableCell>
             <TableCell align="right" sx={{ fontWeight: "bold" }}>
-              Cantidad Máxima
+             Monto Máximo Financiamiento 
             </TableCell>
             <TableCell align="right" sx={{ fontWeight: "bold" }}>
-              Interés Mínimo
+             Tasa Interés (Anual) Mínimo
             </TableCell>
             <TableCell align="right" sx={{ fontWeight: "bold" }}>
-              Interés Máximo
+             Tasa Interés (Anual) Máximo
             </TableCell>
             <TableCell align="left" sx={{ fontWeight: "bold" }}>
               Documentos Requeridos
@@ -89,10 +89,10 @@ const LoanList = () => {
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               <TableCell align="left">{Loan.type}</TableCell>
-              <TableCell align="left">{Loan.maxTerm}</TableCell>
-              <TableCell align="right">{Loan.maxAmount}</TableCell>
-              <TableCell align="right">{Loan.minInterest}</TableCell>
-              <TableCell align="right">{Loan.maxInterest}</TableCell>
+              <TableCell align="left">{Loan.maxTerm} años</TableCell>
+              <TableCell align="right">{Loan.maxAmount} del valor de la propiedad</TableCell>
+              <TableCell align="right">{Loan.minInterest} %</TableCell>
+              <TableCell align="right">{Loan.maxInterest} %</TableCell>
               <TableCell>
 
               <Accordion>
