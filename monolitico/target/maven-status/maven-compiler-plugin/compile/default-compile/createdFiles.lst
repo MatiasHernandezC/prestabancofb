@@ -3,6 +3,7 @@ com\PrestaBanco\monolitico\controllers\UserController.class
 com\PrestaBanco\monolitico\services\LoanService.class
 com\PrestaBanco\monolitico\entities\UserEntity.class
 com\PrestaBanco\monolitico\entities\RequirementsEntity.class
+com\PrestaBanco\monolitico\controllers\LoginRequest.class
 com\PrestaBanco\monolitico\PrestaBancoApplication.class
 com\PrestaBanco\monolitico\services\DocumentService.class
 com\PrestaBanco\monolitico\entities\UserLoanEntity.class

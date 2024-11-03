@@ -5,7 +5,7 @@ import com.PrestaBanco.monolitico.services.DocumentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @RestController
@@ -28,9 +28,26 @@ public class DocumentController {
 	}
 
 	@PostMapping("/")
-	public ResponseEntity<DocumentEntity> saveDocument(@RequestBody DocumentEntity document) {
-		DocumentEntity documentNew = documentService.saveDocument(document);
-		return ResponseEntity.ok(documentNew);
+	public ResponseEntity<DocumentEntity> saveDocument( @RequestParam("file") MultipartFile file,
+														@RequestParam("userId") Long userId,
+														@RequestParam("type") String type) {
+		try {
+			// Procesa el archivo
+			byte[] fileData = file.getBytes();
+
+			// Crear la entidad DocumentEntity y configurar sus campos
+			DocumentEntity document = new DocumentEntity();
+			document.setUserId(userId);
+			document.setType(type);
+			document.setFile(file.getBytes());  // Convierte el archivo a byte[]
+
+			// Guardar el documento en la base de datos
+			DocumentEntity documentNew = documentService.saveDocument(document);
+
+			return ResponseEntity.ok(documentNew);
+		} catch (Exception e) {
+			return ResponseEntity.status(500).body(null);
+		}
 	}
 
 	@PutMapping("/")

@@ -1,0 +1,30 @@
+.formulario {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;  /* Espacio entre los elementos */
+    background-color: #fff;  /* Fondo blanco para el formulario */
+    padding: 2rem;  /* Relleno interno */
+    border-radius: 8px;  /* Bordes redondeados */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);  /* Sombra sutil */
+    width: 300px;  /* Ancho fijo del formulario */
+}
+
+h2 {
+    margin: 0;
+    color: #333;  /* Color del texto */
+}
+button {
+    background-color: #007BFF;  /* Color del botón */
+    color: white;  /* Color del texto del botón */
+    padding: 0.8rem;  /* Relleno interno */
+    border: none;  /* Sin borde */
+    border-radius: 4px;  /* Bordes redondeados */
+    font-size: 1rem;  /* Tamaño de fuente */
+    cursor: pointer;  /* Cambia el cursor al pasar por encima */
+    transition: background-color 0.3s;  /* Transición suave */
+}
+button:hover {
+    background-color: #0056b3;  /* Color del botón al pasar el ratón */
+}

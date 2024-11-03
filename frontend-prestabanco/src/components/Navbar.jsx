@@ -8,10 +8,12 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import Sidemenu from "./Sidemenu";
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
-export default function Navbar() {
+export default function Navbar({ user, logout }) {
   const [open, setOpen] = useState(false);
-
+  const navigate = useNavigate();
+  
   const toggleDrawer = (open) => (event) => {
     setOpen(open);
   };
@@ -38,7 +40,25 @@ export default function Navbar() {
           >
             PrestaBanco
           </Typography>
-          <Button color="inherit">Login</Button>
+
+          {user ? (
+            <>
+              <Typography
+                variant="h10"
+                component="div"
+                sx={{ flexGrow: 2, fontFamily: 'Poppins, sans-serif', fontWeight: 700 }}
+              >
+               Email usuario: {user.email}
+              </Typography>
+              <Button color="inherit" onClick={logout}>Logout</Button>
+              <Button color="inherit" onClick={() => navigate("/loans/list")}>Préstamos</Button>
+            </>
+          ) : (
+            <>
+              <Button color="inherit" onClick={() => navigate("/login")}>Login</Button>
+              <Button color="inherit" onClick={() => navigate("/register")}>Registrarse</Button>
+            </>
+          )}
         </Toolbar>
       </AppBar>
 

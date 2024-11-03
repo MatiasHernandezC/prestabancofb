@@ -3,6 +3,7 @@ package com.PrestaBanco.monolitico.controllers;
 import com.PrestaBanco.monolitico.entities.UserEntity;
 import com.PrestaBanco.monolitico.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/users")
-@CrossOrigin("*")
+@CrossOrigin(origins = "http://localhost:5173")
 public class UserController {
     @Autowired
 	UserService userService;
@@ -47,5 +48,14 @@ public class UserController {
 	public ResponseEntity<Boolean> deleteUserById(@PathVariable Long id) throws Exception {
 		var isDeleted = userService.deleteUser(id);
 		return ResponseEntity.noContent().build();
+	}
+	@PostMapping("/login")
+	public ResponseEntity<UserEntity> login(@RequestBody LoginRequest loginRequest) {
+		UserEntity user = userService.authenticateUser(loginRequest.getEmail(), loginRequest.getPassword());
+		if (user != null) {
+			return ResponseEntity.ok(user); // Devuelve el usuario autenticado
+		} else {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build(); // Credenciales incorrectas
+		}
 	}
 }

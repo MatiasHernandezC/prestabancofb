@@ -20,7 +20,8 @@ public class DocumentEntity {
 
     private Long id;
     private Long userId;
-    // Link del archivo, preferiblemente a google drive
-    private String fileLink;
+    @Lob
+    @Column(name = "file", columnDefinition = "LONGBLOB")
+    private byte[] file;
     private String type;
 }

@@ -41,4 +41,11 @@ public class UserService {
         }
 
     }
+    public UserEntity authenticateUser(String email, String password) {
+        UserEntity user = userRepository.findByEmail(email);
+        if (user != null && user.getPassword().equals(password)) {
+            return user;
+        }
+        return null;
+    }
 }

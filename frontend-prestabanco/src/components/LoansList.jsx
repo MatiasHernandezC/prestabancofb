@@ -90,9 +90,9 @@ const LoanList = () => {
             >
               <TableCell align="left">{Loan.type}</TableCell>
               <TableCell align="left">{Loan.maxTerm} años</TableCell>
-              <TableCell align="right">{Loan.maxAmount} del valor de la propiedad</TableCell>
-              <TableCell align="right">{Loan.minInterest} %</TableCell>
-              <TableCell align="right">{Loan.maxInterest} %</TableCell>
+              <TableCell align="right">{Loan.maxAmount}% del valor de la propiedad</TableCell>
+              <TableCell align="right">{Loan.minInterest}%</TableCell>
+              <TableCell align="right">{Loan.maxInterest}%</TableCell>
               <TableCell>
 
               <Accordion>

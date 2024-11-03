@@ -19,4 +19,7 @@ const update = data => {
 const remove = id => {
     return httpClient.delete(`/api/v1/users/${id}`);
 }
-export default { getAll, create, get, update, remove };
+const login = (email, password) => {
+    return httpClient.post("/api/v1/users/login", { email, password });
+}
+export default { getAll, create, get, update, remove, login };
