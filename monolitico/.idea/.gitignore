@@ -6,3 +6,19 @@
 # Datasource local storage ignored files
 /dataSources/
 /dataSources.local.xml
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
