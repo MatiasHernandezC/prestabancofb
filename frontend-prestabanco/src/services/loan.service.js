@@ -14,7 +14,7 @@ const get = id => {
 const getRequirements = loanName => {
     return httpClient.get(`/api/v1/requirements/loanName/${loanName}`);
 }
-const simulate = (loanName, loanAmount, years, interest, userRut) => {
+const simulateLoan = (loanName, loanAmount, years, interest, userRut) => {
     return httpClient.get(`/api/v1/loans/simulate/${loanName}/${loanAmount}/${years}/${interest}/${userRut}`);
 }
 
@@ -25,4 +25,4 @@ const update = data => {
 const remove = id => {
     return httpClient.delete(`/api/v1/loans/${id}`);
 }
-export default { getAll, create, get, update, remove, getRequirements, simulate };
+export default { getAll, create, get, update, remove, getRequirements, simulateLoan };

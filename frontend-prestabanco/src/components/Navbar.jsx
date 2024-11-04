@@ -8,7 +8,7 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import Sidemenu from "./Sidemenu";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function Navbar({ user, logout }) {
   const [open, setOpen] = useState(false);
@@ -19,7 +19,7 @@ export default function Navbar({ user, logout }) {
   };
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box sx={{display: "flex", alignItems: "center", flexGrow: 1  }}>
       <AppBar position="static">
         <Toolbar>
           <IconButton
@@ -36,22 +36,39 @@ export default function Navbar({ user, logout }) {
           <Typography
             variant="h6"
             component="div"
-            sx={{ flexGrow: 2, fontFamily: 'Poppins, sans-serif', fontWeight: 700 }}
+            sx={{ flexGrow: 1, fontFamily: 'Poppins, sans-serif', fontWeight: 700 }}
           >
             PrestaBanco
           </Typography>
 
           {user ? (
             <>
-              <Typography
-                variant="h10"
-                component="div"
-                sx={{ flexGrow: 2, fontFamily: 'Poppins, sans-serif', fontWeight: 700 }}
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  bgcolor: 'rgba(255, 255, 255, 0.1)',
+                  px: 2,
+                  py: 0.5,
+                  borderRadius: '4px',
+                  ml: 2
+                }}
               >
-               Email usuario: {user.email}
-              </Typography>
-              <Button color="inherit" onClick={logout}>Logout</Button>
-              <Button color="inherit" onClick={() => navigate("/loans/list")}>Préstamos</Button>
+                <Typography
+                  variant="body1"
+                  component="div"
+                  sx={{
+                    fontFamily: 'Poppins, sans-serif',
+                    fontWeight: 500,
+                    color: 'white',
+                    fontSize: '0.9rem',
+                    mr: 1
+                  }}
+                >
+                  {user.email}
+                </Typography>
+              </Box>
+              <Button color="inherit" onClick={logout} sx={{ ml: 2 }}>Logout</Button>
             </>
           ) : (
             <>
@@ -62,7 +79,7 @@ export default function Navbar({ user, logout }) {
         </Toolbar>
       </AppBar>
 
-      <Sidemenu open={open} toggleDrawer={toggleDrawer}></Sidemenu>
+      <Sidemenu open={open} toggleDrawer={toggleDrawer} user={user}></Sidemenu>
     </Box>
   );
 }

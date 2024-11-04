@@ -18,58 +18,60 @@ import HomeIcon from "@mui/icons-material/Home";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
 
-export default function Sidemenu({ open, toggleDrawer }) {
+export default function Sidemenu({ open, toggleDrawer, user }) {
   const navigate = useNavigate();
 
   const listOptions = () => (
-    <Box
-      role="presentation"
-      onClick={toggleDrawer(false)}
-    >
+    <Box role="presentation" onClick={toggleDrawer(false)}>
+      {user?.type === 1 && (
+        <>
+          <Divider textAlign="center">
+            <Typography variant="subtitle1">Admin Mode</Typography>
+          </Divider>
+          <ListItemButton onClick={() => navigate("/user/list")}>
+            <ListItemIcon>
+              <PeopleAltIcon />
+            </ListItemIcon>
+            <ListItemText primary="Users" />
+          </ListItemButton>
+          <Divider />
+        </>
+      )}
+      
       <List>
-        <ListItemButton onClick={() => navigate("/home")}>
+        <ListItemButton onClick={(user) => navigate("/home")}>
           <ListItemIcon>
             <HomeIcon />
           </ListItemIcon>
           <ListItemText primary="Home" />
         </ListItemButton>
 
-        <Divider textAlign="center">
-          <   Typography variant="subtitle1">Depuration Mode</Typography>
-        </Divider>
-        <ListItemButton onClick={() => navigate("/user/list")}>
+        <ListItemButton onClick={({user}) => navigate("/loans/list")}>
           <ListItemIcon>
-            <PeopleAltIcon />
+            <CalculateIcon />
           </ListItemIcon>
-          <ListItemText primary="Users" />
-        </ListItemButton>
-        <Divider />
-
-        <ListItemButton onClick={() => navigate("/loans/list")}>
-          <ListItemIcon>
-            <MoreTimeIcon />
-          </ListItemIcon>
-          <ListItemText primary="Préstamos Disponibles" />
+          <ListItemText primary="Simular un Préstamo" />
         </ListItemButton>
 
         <ListItemButton onClick={() => navigate("/paycheck/list")}>
           <ListItemIcon>
             <PaidIcon />
           </ListItemIcon>
-          <ListItemText primary="Planilla Sueldos" />
+          <ListItemText primary="Solicitar un Préstamo" />
         </ListItemButton>
 
         <ListItemButton onClick={() => navigate("/paycheck/calculate")}>
           <ListItemIcon>
-            <CalculateIcon />
+            <PeopleAltIcon />
           </ListItemIcon>
-          <ListItemText primary="Calcular Planilla" />
+          <ListItemText primary="Ver Perfil" />
         </ListItemButton>
+
         <ListItemButton onClick={() => navigate("/reports/AnualReport")}>
           <ListItemIcon>
-            <AnalyticsIcon />
+            <HomeIcon />
           </ListItemIcon>
-          <ListItemText primary="Gráficos Planillas" />
+          <ListItemText primary="Subir Archivos" />
         </ListItemButton>
       </List>
 
@@ -82,12 +84,14 @@ export default function Sidemenu({ open, toggleDrawer }) {
           </ListItemIcon>
           <ListItemText primary="Descuentos" />
         </ListItemButton>
+
         <ListItemButton onClick={() => navigate("/paycheck/vacations")}>
           <ListItemIcon>
             <HailIcon />
           </ListItemIcon>
           <ListItemText primary="Vacaciones" />
         </ListItemButton>
+
         <ListItemButton onClick={() => navigate("/paycheck/medicalleave")}>
           <ListItemIcon>
             <MedicationLiquidIcon />
@@ -100,7 +104,7 @@ export default function Sidemenu({ open, toggleDrawer }) {
 
   return (
     <div>
-      <Drawer anchor={"left"} open={open} onClose={toggleDrawer(false)}>
+      <Drawer anchor="left" open={open} onClose={toggleDrawer(false)}>
         {listOptions()}
       </Drawer>
     </div>

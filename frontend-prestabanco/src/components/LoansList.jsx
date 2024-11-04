@@ -1,28 +1,31 @@
-import { Accordion, AccordionSummary, AccordionDetails, Typography } from "@mui/material";
+import { Accordion, AccordionSummary, AccordionDetails, Typography, FormControl, InputLabel, Select, MenuItem } from "@mui/material"; 
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import LoanService from "../services/loan.service";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
-import TableCell, { tableCellClasses } from "@mui/material/TableCell";
+import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
-import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
+import TextField from "@mui/material/TextField";
+import Box from "@mui/material/Box";
 
-const LoanList = () => {
+const LoanList = ({user}) => {
   const [Loans, setLoans] = useState([]);
   const [requirements, setRequirements] = useState({});
+  const [loanName, setLoanName] = useState("");
+  const [loanAmount, setLoanAmount] = useState("");
+  const [years, setYears] = useState("");
+  const [interest, setInterest] = useState("");
+  const [userRut, setUserRut] = useState("");
+  const [simulationResult, setSimulationResult] = useState(null);
   const navigate = useNavigate();
-
   const init = () => {
-    LoanService
-      .getAll()
+    LoanService.getAll()
       .then((response) => {
         console.log("Mostrando listado de todos los Préstamos disponibles.", response.data);
         setLoans(response.data);
@@ -39,11 +42,6 @@ const LoanList = () => {
     init();
   }, []);
 
-  const handleEdit = (id) => {
-    console.log("Printing id", id);
-    navigate(`/loans/edit/${id}`);
-  };
-
   const handleRequirements = (loanName) => {
     LoanService.getRequirements(loanName)
       .then((response) => {
@@ -54,66 +52,128 @@ const LoanList = () => {
       });
   };
 
+  const simulateLoan = () => {
+    LoanService.simulateLoan(loanName, loanAmount, years, interest, user.rut)
+      .then((response) => {
+        setSimulationResult(response.data);
+      })
+      .catch((error) => {
+        console.error("Error al simular el préstamo", error);
+      });
+  };
+
   return (
-    <TableContainer component={Paper}>
-      <br />
-      
-      <br /> <br />
-      <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
-        <TableHead>
-          <TableRow>
-            <TableCell align="left" sx={{ fontWeight: "bold" }}>
-              Tipo
-            </TableCell>
-            <TableCell align="left" sx={{ fontWeight: "bold" }}>
-              Plazo Máximo
-            </TableCell>
-            <TableCell align="right" sx={{ fontWeight: "bold" }}>
-             Monto Máximo Financiamiento 
-            </TableCell>
-            <TableCell align="right" sx={{ fontWeight: "bold" }}>
-             Tasa Interés (Anual) Mínimo
-            </TableCell>
-            <TableCell align="right" sx={{ fontWeight: "bold" }}>
-             Tasa Interés (Anual) Máximo
-            </TableCell>
-            <TableCell align="left" sx={{ fontWeight: "bold" }}>
-              Documentos Requeridos
-            </TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {Loans.map((Loan) => (
-            <TableRow
-              key={Loan.id}
-              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-            >
-              <TableCell align="left">{Loan.type}</TableCell>
-              <TableCell align="left">{Loan.maxTerm} años</TableCell>
-              <TableCell align="right">{Loan.maxAmount}% del valor de la propiedad</TableCell>
-              <TableCell align="right">{Loan.minInterest}%</TableCell>
-              <TableCell align="right">{Loan.maxInterest}%</TableCell>
-              <TableCell>
-
-              <Accordion>
-                <AccordionSummary expandIcon={<ExpandMoreIcon />} onClick={() => handleRequirements(Loan.type)}>
-                  <Typography>Ver Documentos</Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                  <ul>
-                    {requirements[Loan.type]?.map((doc, index) => (
-                      <li key={index}>{doc}</li>
-                    )) || <Typography>No hay documentos.</Typography>}
-                  </ul>
-                </AccordionDetails>
-              </Accordion>
-
+    <Box>
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
+          <TableHead>
+            <TableRow>
+              <TableCell align="left" sx={{ fontWeight: "bold" }}>
+                Tipo
+              </TableCell>
+              <TableCell align="left" sx={{ fontWeight: "bold" }}>
+                Plazo Máximo
+              </TableCell>
+              <TableCell align="right" sx={{ fontWeight: "bold" }}>
+                Monto Máximo Financiamiento
+              </TableCell>
+              <TableCell align="right" sx={{ fontWeight: "bold" }}>
+                Tasa Interés (Anual) Mínimo
+              </TableCell>
+              <TableCell align="right" sx={{ fontWeight: "bold" }}>
+                Tasa Interés (Anual) Máximo
+              </TableCell>
+              <TableCell align="left" sx={{ fontWeight: "bold" }}>
+                Documentos Requeridos
               </TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableHead>
+          <TableBody>
+            {Loans.map((Loan) => (
+              <TableRow key={Loan.id} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                <TableCell align="left">{Loan.type}</TableCell>
+                <TableCell align="left">{Loan.maxTerm} años</TableCell>
+                <TableCell align="right">{Loan.maxAmount}% del valor de la propiedad</TableCell>
+                <TableCell align="right">{Loan.minInterest}%</TableCell>
+                <TableCell align="right">{Loan.maxInterest}%</TableCell>
+                <TableCell>
+                  <Accordion>
+                    <AccordionSummary expandIcon={<ExpandMoreIcon />} onClick={() => handleRequirements(Loan.type)}>
+                      <Typography>Ver Documentos</Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                      <ul>
+                        {requirements[Loan.type]?.map((doc, index) => (
+                          <li key={index}>{doc}</li>
+                        )) || <Typography>No hay documentos.</Typography>}
+                      </ul>
+                    </AccordionDetails>
+                  </Accordion>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+
+      <Box sx={{ p: 2, mt: 3 }}>
+        <Typography variant="h5" gutterBottom>Simular un Préstamo</Typography>
+        
+        <FormControl fullWidth margin="normal">
+          <InputLabel id="loan-select-label">Nombre del Préstamo</InputLabel>
+          <Select
+            labelId="loan-select-label"
+            value={loanName}
+            onChange={(e) => setLoanName(e.target.value)}
+            label="Nombre del Préstamo"
+          >
+            {Loans.map((Loan) => (
+              <MenuItem key={Loan.id} value={Loan.type} >{Loan.type}</MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        <TextField
+          label="Monto del Préstamo"
+          value={loanAmount}
+          onChange={(e) => setLoanAmount(e.target.value)}
+          type="number"
+          fullWidth
+          margin="normal"
+        />
+        <TextField
+          label="Años de Financiamiento"
+          value={years}
+          onChange={(e) => setYears(e.target.value)}
+          type="number"
+          fullWidth
+          margin="normal"
+        />
+        <TextField
+          label="Tasa de Interés (%)"
+          value={interest}
+          onChange={(e) => setInterest(e.target.value)}
+          type="number"
+          fullWidth
+          margin="normal"
+        />
+        <Button variant="contained" color="primary" onClick={simulateLoan} sx={{ mt: 2 }}>
+          Simular Préstamo
+        </Button>
+
+        <Box sx={{ mt: 2, p: 2, border: '1px solid', borderColor: simulationResult !== null && simulationResult !== 0 ? 'secondary.main' : 'error.main', borderRadius: 1, bgcolor: simulationResult !== null && simulationResult !== 0 ? 'rgba(100, 255, 218, 0.1)' : 'rgba(255, 0, 0, 0.1)' }}>
+        {simulationResult !== null && simulationResult !== 0 ? (
+          <Typography variant="h6" color="secondary" sx={{ fontWeight: 'bold' }}>
+            Pago Mensual Estimado: <span style={{ color: 'green' }}>${simulationResult}</span> mensual por {years * 12} meses
+          </Typography>
+          
+        ) : (
+          <Typography variant="h6" color="error" sx={{ fontWeight: 'bold' }}>
+            Error al simular, revise que los datos esten correctos y que no le falten documentos
+          </Typography>
+        )}
+      </Box>
+      </Box>
+    </Box>
   );
 };
 

@@ -1,18 +1,45 @@
+import { Typography, Box, Link } from "@mui/material";
+
 const Home = () => {
   return (
-    <div>
-      <h1>PrestaBanco: App Web dedicada a prestamos hipotecarios</h1>
-      <p>
-        La aplicación web de PrestaBanco deja a sus clientes pedir y simular
-        prestamos hipotecarios de una manera mas rapida que presencialmente.
-        Esta aplicación ha sido desarrollada usando tecnologías como{" "}
-        <a href="https://spring.io/projects/spring-boot">Spring Boot</a> (para
-        el backend), <a href="https://reactjs.org/">React</a> (para el Frontend)
-        y <a href="https://www.mysql.com/products/community/">MySQL</a> (para la
-        base de datos).
-      </p>
-    </div>
-    
+    <Box sx={{ p: 3, textAlign: "center" }}>
+      <Typography 
+        variant="h3" 
+        component="h1" 
+        sx={{ fontWeight: "bold", mb: 2, fontFamily: 'Poppins, sans-serif', color: "#1a73e8" }}
+      >
+        PrestaBanco
+      </Typography>
+      <Typography 
+        variant="h5" 
+        component="h2" 
+        sx={{ fontStyle: "italic", mb: 4, color: "#5f6368" }}
+      >
+        App Web dedicada a préstamos hipotecarios
+      </Typography>
+      <Typography 
+        variant="body1" 
+        component="p" 
+        sx={{ fontSize: "1.1rem", lineHeight: 1.6, color: "#3c4043", maxWidth: "800px", mx: "auto" }}
+      >
+        La aplicación web de <strong>PrestaBanco</strong> permite a sus clientes solicitar y simular préstamos hipotecarios de una manera más rápida que de forma presencial. Esta aplicación ha sido desarrollada utilizando tecnologías avanzadas como 
+        {" "}
+        <Link href="https://spring.io/projects/spring-boot" target="_blank" color="primary" underline="hover">
+          Spring Boot
+        </Link> {" "}
+        (para el backend), 
+        {" "}
+        <Link href="https://reactjs.org/" target="_blank" color="primary" underline="hover">
+          React
+        </Link> {" "}
+        (para el frontend), y 
+        {" "}
+        <Link href="https://www.mysql.com/products/community/" target="_blank" color="primary" underline="hover">
+          MySQL
+        </Link> {" "}
+        (para la base de datos).
+      </Typography>
+    </Box>
   );
 };
 

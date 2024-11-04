@@ -26,7 +26,7 @@ function App() {
               <Route path="/login" element={<Login onLogin={login} />} />
               <Route path="/home" element={<Home />} />
               <Route path="/user/list" element={<PrivateRoute user={user}><UserList /></PrivateRoute>} />
-              <Route path="/loans/list" element={<PrivateRoute user={user}><LoansList /></PrivateRoute>} />
+              <Route path="/loans/list" element={<PrivateRoute user={user}><LoansList user={user}/></PrivateRoute>} />
               <Route path="/user/add" element={<PrivateRoute user={user}><AddEditUser /></PrivateRoute>} />
               <Route path="/register" element={<Register />} />
               <Route path="*" element={<NotFound />} />
