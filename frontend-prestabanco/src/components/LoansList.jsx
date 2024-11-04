@@ -23,6 +23,7 @@ const LoanList = ({user}) => {
   const [interest, setInterest] = useState("");
   const [userRut, setUserRut] = useState("");
   const [simulationResult, setSimulationResult] = useState(null);
+  const [insuranceDetails, setInsuranceDetails] = useState(null); 
   const navigate = useNavigate();
   const init = () => {
     LoanService.getAll()
@@ -56,6 +57,25 @@ const LoanList = ({user}) => {
     LoanService.simulateLoan(loanName, loanAmount, years, interest, user.rut)
       .then((response) => {
         setSimulationResult(response.data);
+
+        const seguroDegravamen = loanAmount * 0.0003;
+        const seguroIncendio = 20000;
+        const comisionAdministracion = loanAmount * 0.01;
+        
+        // Costo mensual total
+        const costoMensualTotal = response.data + seguroDegravamen + seguroIncendio;
+
+        // Costo total considerando el plazo
+        const costoTotal = (costoMensualTotal * years * 12) + comisionAdministracion;
+
+        // Guardamos los detalles de seguros y costos
+        setInsuranceDetails({
+          seguroDegravamen,
+          seguroIncendio,
+          comisionAdministracion,
+          costoMensualTotal,
+          costoTotal
+        });
       })
       .catch((error) => {
         console.error("Error al simular el préstamo", error);
@@ -162,10 +182,20 @@ const LoanList = ({user}) => {
 
         <Box sx={{ mt: 2, p: 2, border: '1px solid', borderColor: simulationResult !== null && simulationResult !== 0 ? 'secondary.main' : 'error.main', borderRadius: 1, bgcolor: simulationResult !== null && simulationResult !== 0 ? 'rgba(100, 255, 218, 0.1)' : 'rgba(255, 0, 0, 0.1)' }}>
         {simulationResult !== null && simulationResult !== 0 ? (
+          <>
           <Typography variant="h6" color="secondary" sx={{ fontWeight: 'bold' }}>
-            Pago Mensual Estimado: <span style={{ color: 'green' }}>${simulationResult}</span> mensual por {years * 12} meses
+            Pago Mensual de Préstamo: <span style={{ color: 'green' }}>${simulationResult}</span> mensual por {years * 12} meses
           </Typography>
-          
+          {insuranceDetails && (
+            <>
+              <Typography variant="h6" color="secondary" sx={{ fontWeight: 'bold' }}>Seguro de Degravamen: <span style={{ color: 'green' }}>${insuranceDetails.seguroDegravamen.toFixed(2)}</span></Typography>
+              <Typography variant="h6" color="secondary" sx={{ fontWeight: 'bold' }}>Seguro de Incendio: <span style={{ color: 'green' }}>${insuranceDetails.seguroIncendio}</span> por mes</Typography>
+              <Typography variant="h6" color="secondary" sx={{ fontWeight: 'bold' }}>Comisión de Administración: <span style={{ color: 'green' }}>${insuranceDetails.comisionAdministracion.toFixed(2)}</span></Typography>
+              <Typography variant="h6" color="secondary" sx={{ fontWeight: 'bold' }}>Costo Mensual Total: <span style={{ color: 'green' }}>${insuranceDetails.costoMensualTotal.toFixed(2)}</span></Typography>
+              <Typography variant="h6" color="secondary" sx={{ fontWeight: 'bold' }}>Costo Total: <span style={{ color: 'green' }}>${insuranceDetails.costoTotal.toFixed(2)}</span></Typography>
+            </>
+          )}
+          </>
         ) : (
           <Typography variant="h6" color="error" sx={{ fontWeight: 'bold' }}>
             Error al simular, revise que los datos esten correctos y que no le falten documentos

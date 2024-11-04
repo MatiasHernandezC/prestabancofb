@@ -19,6 +19,6 @@ public class UserLoanEntity {
     private Long userId;
     private Long loanId;
     private int totalLoan;
-    private int fee;
-    private int numberOfFees;
+    private int quota;
+    private int numberOfQuotas;
 }

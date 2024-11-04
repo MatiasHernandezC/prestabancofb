@@ -1,0 +1,116 @@
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx-proxy
+    restart: always
+    ports:
+      - "8090:8090"
+    volumes:
+      - ./monolitico/nginx/conf.d:/etc/nginx/conf.d
+    depends_on:
+      - app1
+      - app2
+      - app3
+    networks:
+      backend-network:
+
+  mysql-db:
+    image: mysql
+    restart: always
+    volumes:
+      - ./data/db:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: user
+      MYSQL_DATABASE: prestabanco
+    ports:
+      - 33060:3306
+    networks:
+      backend-network:
+
+  app1:
+    container_name: proyecto_prestabanco1
+    image: motihc/proyecto_prestabanco
+    ports:
+      - "8091:8090"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-db:3306/prestabanco?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&useSSL=false
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=user
+    deploy:
+      restart_policy:
+        condition: on-failure
+    depends_on:
+      - mysql-db
+    networks:
+      backend-network:
+
+  app2:
+    container_name: proyecto_prestabanco2
+    image: motihc/proyecto_prestabanco
+    ports:
+      - "8092:8090"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-db:3306/prestabanco?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&useSSL=false
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=user
+    deploy:
+      restart_policy:
+        condition: on-failure
+    depends_on:
+      - mysql-db
+    networks:
+      backend-network:
+
+  app3:
+    container_name: proyecto_prestabanco3
+    image: motihc/proyecto_prestabanco
+    ports:
+      - "8093:8090"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-db:3306/prestabanco?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&useSSL=false
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=user
+    deploy:
+      restart_policy:
+        condition: on-failure
+    depends_on:
+      - mysql-db
+    networks:
+      backend-network:
+
+  # Frontend services
+  frontend1:
+    image: motihc/proyecto_prestabancofront:latest
+    networks:
+      - frontend-network
+
+  frontend2:
+    image: motihc/proyecto_prestabancofront:latest
+    networks:
+      - frontend-network
+
+  frontend3:
+    image: motihc/proyecto_prestabancofront:latest
+    networks:
+      - frontend-network
+
+
+  # Nginx for frontend load balancing
+  nginx-frontend:
+    image: nginx:latest
+    container_name: nginx-proxy-frontend
+    ports:
+      - "8070:80"
+    volumes:
+      - ./nginx-frontend.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - frontend1
+      - frontend2
+      - frontend3
+    networks:
+      - frontend-network
+    restart: always
+
+networks:
+  frontend-network:
+  backend-network:

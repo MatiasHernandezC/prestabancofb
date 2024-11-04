@@ -5,7 +5,7 @@ pipeline{
 
     }
     stages{
-        stage("Build JAR File"){
+        stage("Build Backend"){
             steps{
                 checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/MatiasHernandezC/prestabanco.git']])
                 dir("monolitico"){
