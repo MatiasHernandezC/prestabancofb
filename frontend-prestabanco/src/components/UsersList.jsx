@@ -60,7 +60,7 @@ const UserList = () => {
 
   const handleEdit = (id) => {
     console.log("Printing id", id);
-    navigate(`/User/edit/${id}`);
+    navigate(`/user/edit/${id}`);
   };
 
   return (

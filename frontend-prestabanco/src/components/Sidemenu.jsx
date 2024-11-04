@@ -9,6 +9,7 @@ import ListItemText from "@mui/material/ListItemText";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import PaidIcon from "@mui/icons-material/Paid";
 import CalculateIcon from "@mui/icons-material/Calculate";
+import FileUploadIcon from '@mui/icons-material/FileUpload';
 import AnalyticsIcon from "@mui/icons-material/Analytics";
 import DiscountIcon from "@mui/icons-material/Discount";
 import HailIcon from "@mui/icons-material/Hail";
@@ -53,23 +54,23 @@ export default function Sidemenu({ open, toggleDrawer, user }) {
           <ListItemText primary="Simular un Préstamo" />
         </ListItemButton>
 
-        <ListItemButton onClick={() => navigate("/paycheck/list")}>
+        <ListItemButton onClick={({user}) => navigate("/loans/request")}>
           <ListItemIcon>
             <PaidIcon />
           </ListItemIcon>
           <ListItemText primary="Solicitar un Préstamo" />
         </ListItemButton>
 
-        <ListItemButton onClick={() => navigate("/paycheck/calculate")}>
+        <ListItemButton onClick={({user}) => navigate("/paycheck/calculate")}>
           <ListItemIcon>
             <PeopleAltIcon />
           </ListItemIcon>
           <ListItemText primary="Ver Perfil" />
         </ListItemButton>
 
-        <ListItemButton onClick={() => navigate("/reports/AnualReport")}>
+        <ListItemButton onClick={({user}) => navigate("/uploadDocument")}>
           <ListItemIcon>
-            <HomeIcon />
+            <FileUploadIcon />
           </ListItemIcon>
           <ListItemText primary="Subir Archivos" />
         </ListItemButton>

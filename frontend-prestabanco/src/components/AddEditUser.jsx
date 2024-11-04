@@ -102,6 +102,7 @@ const AddEditUser = () => {
             value={name}
             variant="standard"
             onChange={(e) => setName(e.target.value)}
+            helperText="Nombre1 Nombre2... Apellido1 Apellido2"
           />
         </FormControl>
 
@@ -124,6 +125,7 @@ const AddEditUser = () => {
             variant="standard"
             onChange={(e) => setPassword(e.target.value)}
             type="password"
+            helperText= "Mínimo 6 caracteres"
           />
         </FormControl>
         <FormControl fullWidth>
