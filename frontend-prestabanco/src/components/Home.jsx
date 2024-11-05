@@ -15,7 +15,7 @@ const Home = () => {
         component="h2" 
         sx={{ fontStyle: "italic", mb: 4, color: "#5f6368" }}
       >
-        App Web dedicada a préstamos hipotecarios
+        App Web dedicada a préstamos hipotecarios (Chile)
       </Typography>
       <Typography 
         variant="body1" 
