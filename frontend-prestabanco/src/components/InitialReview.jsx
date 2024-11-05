@@ -46,10 +46,8 @@ const InitialReview = () => {
   };
   const handleReject = async () => {
     try {
-      // Aquí estamos enviando el ID del préstamo y un estado de rechazo (por ejemplo, 7)
       await UserLoanService.updateLoanStatus(userLoanId, 7);
       
-      // Actualiza el estado local si es necesario
       setUserLoan((prev) => ({ ...prev, status: 'Rechazado', code: 7 })); 
   
       navigate(`/userLoan/listAll`);

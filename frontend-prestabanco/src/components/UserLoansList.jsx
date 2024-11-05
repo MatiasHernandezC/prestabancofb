@@ -114,7 +114,7 @@ const UserLoan = ({ user }) => {
           <TableBody>
             {UserLoan.map((userLoan) => (
               <TableRow key={userLoan.id}>
-                <TableCell align="left">{getLoanType(userLoan.loanId)}</TableCell> {/* Imprime el tipo de préstamo */}
+                <TableCell align="left">{getLoanType(userLoan.loanId)}</TableCell> {}
                 <TableCell align="left">{userLoan.totalLoan}</TableCell>
                 <TableCell align="left">{userLoan.numberOfQuotas}</TableCell>
                 <TableCell align="left">{userLoan.quota}</TableCell>

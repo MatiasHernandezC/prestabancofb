@@ -57,11 +57,10 @@ const LoanList = ({user}) => {
     LoanService.simulateLoan(loanName, loanAmount, years, interest, user.rut)
       .then((response) => {
         setSimulationResult(response.data);
-
         const seguroDegravamen = loanAmount * 0.0003;
         const seguroIncendio = 20000;
         const comisionAdministracion = loanAmount * 0.01;
-        
+
         // Costo mensual total
         const costoMensualTotal = response.data + seguroDegravamen + seguroIncendio;
 
@@ -181,7 +180,7 @@ const LoanList = ({user}) => {
         </Button>
 
         <Box sx={{ mt: 2, p: 2, border: '1px solid', borderColor: simulationResult !== null && simulationResult !== 0 ? 'secondary.main' : 'error.main', borderRadius: 1, bgcolor: simulationResult !== null && simulationResult !== 0 ? 'rgba(100, 255, 218, 0.1)' : 'rgba(255, 0, 0, 0.1)' }}>
-        {simulationResult !== null && simulationResult !== 0 ? (
+        {simulationResult !== null && simulationResult !== 0 && insuranceDetails.costoMensualTotal >= 0 && insuranceDetails.costoTotal >= 0? (
           <>
           <Typography variant="h6" color="secondary" sx={{ fontWeight: 'bold' }}>
             Pago Mensual de Préstamo: <span style={{ color: 'green' }}>${simulationResult}</span> mensual por {years * 12} meses

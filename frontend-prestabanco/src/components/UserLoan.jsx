@@ -69,7 +69,6 @@ const LoanList = ({user}) => {
         // Costo total considerando el plazo
         const costoTotal = (costoMensualTotal * years * 12) + comisionAdministracion;
 
-        // Guardamos los detalles de seguros y costos
         setInsuranceDetails({
           seguroDegravamen,
           seguroIncendio,
@@ -182,7 +181,7 @@ const LoanList = ({user}) => {
         </Button>
 
         <Box sx={{ mt: 2, p: 2, border: '1px solid', borderColor: requestResult !== null && requestResult !== 0 ? 'secondary.main' : 'error.main', borderRadius: 1, bgcolor: requestResult !== null && requestResult !== 0 ? 'rgba(100, 255, 218, 0.1)' : 'rgba(255, 0, 0, 0.1)' }}>
-        {requestResult !== null && requestResult !== 0 ? (
+        {requestResult !== null && requestResult !== 0 && insuranceDetails.costoMensualTotal >= 0 && insuranceDetails.costoTotal >= 0 ? (
           <>
           <Typography variant="h6" color="secondary" sx={{ fontWeight: 'bold' }}>
             Pago Mensual de Préstamo: <span style={{ color: 'green' }}>${requestResult}</span> mensual por {years * 12} meses

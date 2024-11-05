@@ -42,7 +42,7 @@ function UploadDocument({user}) {
       display="flex" 
       flexDirection="column" 
       alignItems="center" 
-      gap={2}  // Espaciado entre los elementos
+      gap={2}  
       sx={{ width: '100%', maxWidth: 400, mx: 'auto', p: 3, boxShadow: 3, borderRadius: 2 }}
     >
       <h3>Cargar Documento</h3>
