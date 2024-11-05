@@ -57,7 +57,7 @@ const LoanList = ({user}) => {
   const requestLoan = () => {
     UserLoanService.requestLoan(loanName, loanAmount, years, interest, user.rut)
       .then((response) => {
-        requestResult(response.data);
+        setRequestResult(response.data);
 
         const seguroDegravamen = loanAmount * 0.0003;
         const seguroIncendio = 20000;

@@ -45,6 +45,10 @@ public class UserLoanService {
         UserLoanEntity nuevaPeticion = new UserLoanEntity();
         UserEntity userActual = userRepository.findByRut(userRut);
         LoanEntity loanActual = loanRepository.findByType(loanName);
+        if (loanActual == null || userActual == null) {
+            System.out.println("Loan o User no encontrados.");
+            return null;
+        }
         if (userActual == null) {
             System.out.println("User not found");
             return nuevaPeticion;

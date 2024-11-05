@@ -15,6 +15,7 @@ import java.util.List;
 public class UserLoanController {
     @Autowired
 	UserLoanService userLoanService;
+	@Autowired
 	LoanService loanService;
     @GetMapping("/")
 	public ResponseEntity<List<UserLoanEntity>> listUserLoans() {
@@ -44,6 +45,7 @@ public class UserLoanController {
 
 		UserLoanEntity userLoanNew = userLoanService.loanPetition(userRut, loanName, quota, amount, years, interest);
 		return ResponseEntity.ok(userLoanNew);
+
 	}
 	@PutMapping("/")
 	public ResponseEntity<UserLoanEntity> updateUserLoan(@RequestBody UserLoanEntity userLoan){
