@@ -1,6 +1,7 @@
 package com.PrestaBanco.monolitico.controllers;
 
 import com.PrestaBanco.monolitico.entities.UserLoanEntity;
+import com.PrestaBanco.monolitico.services.LoanService;
 import com.PrestaBanco.monolitico.services.UserLoanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +15,7 @@ import java.util.List;
 public class UserLoanController {
     @Autowired
 	UserLoanService userLoanService;
-
+	LoanService loanService;
     @GetMapping("/")
 	public ResponseEntity<List<UserLoanEntity>> listUserLoans() {
     	List<UserLoanEntity> userLoans = userLoanService.getUserLoans();
@@ -32,7 +33,18 @@ public class UserLoanController {
 		UserLoanEntity userLoanNew = userLoanService.saveUserLoan(userLoan);
 		return ResponseEntity.ok(userLoanNew);
 	}
+	@PostMapping("/request/{loanName}/{amount}/{years}/{interest}/{userRut}")
+	public ResponseEntity<UserLoanEntity> saveUserLoanRequest(@PathVariable String loanName,
+															  @PathVariable int amount,
+															  @PathVariable int years,
+															  @PathVariable double interest,
+															  @PathVariable String userRut) {
 
+		int quota = (int) loanService.simulateLoanFee(loanName, amount, years, interest, userRut);
+
+		UserLoanEntity userLoanNew = userLoanService.loanPetition(userRut, loanName, quota, amount, years, interest);
+		return ResponseEntity.ok(userLoanNew);
+	}
 	@PutMapping("/")
 	public ResponseEntity<UserLoanEntity> updateUserLoan(@RequestBody UserLoanEntity userLoan){
 		UserLoanEntity userLoanUpdated = userLoanService.updateUserLoan(userLoan);

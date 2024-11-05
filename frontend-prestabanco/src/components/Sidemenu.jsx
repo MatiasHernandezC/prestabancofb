@@ -54,14 +54,14 @@ export default function Sidemenu({ open, toggleDrawer, user }) {
           <ListItemText primary="Simular un Préstamo" />
         </ListItemButton>
 
-        <ListItemButton onClick={({user}) => navigate("/loans/request")}>
+        <ListItemButton onClick={({user}) => navigate("/userLoan/request")}>
           <ListItemIcon>
             <PaidIcon />
           </ListItemIcon>
           <ListItemText primary="Solicitar un Préstamo" />
         </ListItemButton>
 
-        <ListItemButton onClick={({user}) => navigate("/paycheck/calculate")}>
+        <ListItemButton onClick={({user}) => navigate("/user/view")}>
           <ListItemIcon>
             <PeopleAltIcon />
           </ListItemIcon>
@@ -76,29 +76,15 @@ export default function Sidemenu({ open, toggleDrawer, user }) {
         </ListItemButton>
       </List>
 
-      <Divider />
-
       <List>
-        <ListItemButton onClick={() => navigate("/employee/discounts")}>
+        <ListItemButton onClick={() => navigate("/userLoan/view")}>
           <ListItemIcon>
-            <DiscountIcon />
+            <PaidIcon />
           </ListItemIcon>
-          <ListItemText primary="Descuentos" />
+          <ListItemText primary="Ver Préstamos" />
         </ListItemButton>
 
-        <ListItemButton onClick={() => navigate("/paycheck/vacations")}>
-          <ListItemIcon>
-            <HailIcon />
-          </ListItemIcon>
-          <ListItemText primary="Vacaciones" />
-        </ListItemButton>
-
-        <ListItemButton onClick={() => navigate("/paycheck/medicalleave")}>
-          <ListItemIcon>
-            <MedicationLiquidIcon />
-          </ListItemIcon>
-          <ListItemText primary="Licencias Medicas" />
-        </ListItemButton>
+      <Divider />
       </List>
     </Box>
   );

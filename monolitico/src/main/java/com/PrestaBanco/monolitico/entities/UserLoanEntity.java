@@ -18,7 +18,23 @@ public class UserLoanEntity {
     private Long id;
     private Long userId;
     private Long loanId;
+    // 0. Aún no Revisada.
+    // 1. En Revisión Inicial.
+    // 2. Pendiente de Documentación.
+    // 3. En Evaluación.
+    // 4. Pre-Aprobada.
+    // 5. En Aprobación Final.
+    // 6. Aprobada.
+    // 7. Rechazada.
+    // 8. Cancelada por el Cliente.
+    // 9. En Desembolso.
+    private int status;
+
     private int totalLoan;
     private int quota;
     private int numberOfQuotas;
+    private int fireInsurance;
+    private int creditInsurance;
+    private int administrationCost;
+    private int totalCost;
 }

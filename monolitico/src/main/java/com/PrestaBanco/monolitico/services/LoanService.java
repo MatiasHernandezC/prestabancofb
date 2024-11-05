@@ -21,7 +21,7 @@ public class LoanService {
     @Autowired
     RequirementsRepository requirementsRepository;
     @Autowired
-    private DocumentRepository documentRepository;
+    DocumentRepository documentRepository;
 
     public ArrayList<LoanEntity> getLoans(){
         return (ArrayList<LoanEntity>) loanRepository.findAll();
@@ -90,11 +90,9 @@ public class LoanService {
                 }
             }
         }
-        System.out.println(aux);
         // Calcular la cuota mensual
         double fee = 0;
         if (aux == 4){
-            System.out.println(fee);
             double monthlyInterestRate = interest / 12 / 100;
             int totalMonths = years * 12;
             // Calcula el factor compuesto (1 + monthlyInterestRate)^totalMonths
@@ -102,7 +100,6 @@ public class LoanService {
             // Calcula la cuota mensual
             fee = loanAmount * monthlyInterestRate * pow / (pow - 1);
         }
-        System.out.println(fee);
         return fee;
     }
 

@@ -8,17 +8,26 @@ docker-compose up -d
 docker compose down --rmi all
 C:\Users\motoc\Downloads>java -jar jenkins.war
 todo lo anterior por jenkins
-dps de jenkins:
-Back:
-    - docker-compose up -d
-    - docker run -d -p 8070:80 motihc/proyecto_prestabancofront
+
+
 
 
 ssh moti@104.41.63.98
+Guadalupe123
 
+
+cd proyectoprestabancoApp
+docker compose up -d
+docker ps
 docker compose down --rmi all
+http://mingeso2024.brazilsouth.cloudapp.azure.com:8070/#/home
+
+
+
+
+
+
 
 https://portal.azure.com/?Microsoft_Azure_Education_correlationId=6ef9921e-8da9-43b5-aab0-83b57f5d3e5e#@usach.cl/resource/subscriptions/8a9d8bc1-f722-4039-bf6a-468a98830214/resourceGroups/af-rg/providers/Microsoft.Compute/virtualMachines/af-vm/overview
 http://localhost:8080/job/pipeline-jenkins/
-http://104.41.63.98/api
-http://localhost:8090/listarVehiculos
+http://mingeso2024.brazilsouth.cloudapp.azure.com:8070/#/home
