@@ -74,7 +74,7 @@ const LoanList = ({user}) => {
           seguroDegravamen,
           seguroIncendio,
           comisionAdministracion,
-          costoMensualTotal,
+          costoMensualTotal,  
           costoTotal
         });
       })

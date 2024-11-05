@@ -6,7 +6,7 @@ import Button from '@mui/material/Button';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import documentService from "../services/document.service";
 
-function UploadDocument() {
+function UploadDocument({user}) {
   const [file, setFile] = useState(null);
   const [type, setType] = useState('');
   const [error, setError] = useState('');
@@ -25,7 +25,7 @@ function UploadDocument() {
     }
 
     try {
-      const userId = 1;  // Aquí puedes obtener el ID del usuario logueado según tu lógica
+      const userId = user.id;
       await documentService.uploadDocument(file, type, userId);
       alert("Documento subido con éxito");
       navigate('/home');
