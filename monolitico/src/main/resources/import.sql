@@ -30,3 +30,5 @@ DELETE l1 FROM requirements l1 INNER JOIN requirements l2 WHERE l1.id > l2.id AN
 INSERT INTO users (TYPE, EMAIL, NAME, PASSWORD, RUT) SELECT 1, "asd@asd.com", "Matias", "asdasd", "12345678-9" WHERE NOT EXISTS (SELECT 1 FROM users WHERE RUT = "12345678-9");
 SELECT type, loan_name, COUNT(*) FROM requirements GROUP BY type, loan_name HAVING COUNT(*) > 1;
 DELETE l1 FROM requirements l1 INNER JOIN requirements l2 WHERE l1.id > l2.id AND l1.type = l2.type AND l1.loan_name = l2.loan_name;
+
+INSERT INTO user_loans (`administration_cost`, `credit_insurance`, `fire_insurance`, `number_of_quotas`, `quota`, `status`, `total_cost`, `total_loan`, `loan_id`, `user_id`) VALUES ('1000000', '29999', '20000', '240', '632649', '5', '164835760', '100000000', '1', '1');

@@ -56,7 +56,11 @@ public class UserLoanController {
 		UserLoanEntity userLoanUpdated = userLoanService.updateUserLoan(userLoan);
 		return ResponseEntity.ok(userLoanUpdated);
 	}
-
+	@PutMapping("/{status}")
+	public ResponseEntity<UserLoanEntity> updateUserLoanStatus(@RequestBody UserLoanEntity userLoan, @PathVariable int status){
+		UserLoanEntity userLoanUpdated = userLoanService.updateUserLoanStatus(userLoan, status);
+		return ResponseEntity.ok(userLoanUpdated);
+	}
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Boolean> deleteUserLoanById(@PathVariable Long id) throws Exception {
 		var isDeleted = userLoanService.deleteUserLoan(id);

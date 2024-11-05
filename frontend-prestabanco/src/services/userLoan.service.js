@@ -12,7 +12,7 @@ const get = id => {
     return httpClient.get(`/api/v1/userLoans/${id}`);
 }
 const getByUserId = id => {
-    return httpClient.get(`/api/v1/userLoans/userId/${id}`);
+    return httpClient.get(`/api/v1/userLoans/userId/?userId=${id}`);
 }
 const getRequirements = loanName => {
     return httpClient.get(`/api/v1/requirements/loanName/${loanName}`);

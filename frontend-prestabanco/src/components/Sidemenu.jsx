@@ -21,7 +21,10 @@ import { useNavigate } from "react-router-dom";
 
 export default function Sidemenu({ open, toggleDrawer, user }) {
   const navigate = useNavigate();
-
+  const handleEdit = (id) => {
+    console.log("Printing id", id);
+    navigate(`/user/edit/${id}`);
+  };
   const listOptions = () => (
     <Box role="presentation" onClick={toggleDrawer(false)}>
       {user?.type === 1 && (
@@ -34,6 +37,12 @@ export default function Sidemenu({ open, toggleDrawer, user }) {
               <PeopleAltIcon />
             </ListItemIcon>
             <ListItemText primary="Users" />
+          </ListItemButton>
+          <ListItemButton onClick={() => navigate("/userLoan/listAll")}>
+            <ListItemIcon>
+              <PeopleAltIcon />
+            </ListItemIcon>
+            <ListItemText primary="Revisar Solicitudes" />
           </ListItemButton>
           <Divider />
         </>
@@ -61,7 +70,7 @@ export default function Sidemenu({ open, toggleDrawer, user }) {
           <ListItemText primary="Solicitar un Préstamo" />
         </ListItemButton>
 
-        <ListItemButton onClick={({user}) => navigate("/user/view")}>
+        <ListItemButton onClick={() => handleEdit(user.id)}>
           <ListItemIcon>
             <PeopleAltIcon />
           </ListItemIcon>

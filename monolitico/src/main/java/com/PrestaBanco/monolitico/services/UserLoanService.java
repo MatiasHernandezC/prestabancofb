@@ -40,7 +40,10 @@ public class UserLoanService {
     public UserLoanEntity updateUserLoan(UserLoanEntity userLoan) {
         return userLoanRepository.save(userLoan);
     }
-
+    public UserLoanEntity updateUserLoanStatus(UserLoanEntity userLoan, int status) {
+        userLoan.setStatus(status);
+        return userLoanRepository.save(userLoan);
+    }
     public UserLoanEntity loanPetition(String userRut, String loanName, Integer quota, Integer amount, Integer years, double interest) {
 
         int aux = 0;
@@ -101,7 +104,7 @@ public class UserLoanService {
             double administrationCost = amount * 0.01;
             int administrationCostInt = (int) administrationCost;
             nuevaPeticion.setAdministrationCost(administrationCostInt);
-            int totalCost = (amount + creditInsuranceInt + 20000) * nuevaPeticion.getNumberOfQuotas() + administrationCostInt;
+            int totalCost = (nuevaPeticion.getQuota() + creditInsuranceInt + 20000) * nuevaPeticion.getNumberOfQuotas() + administrationCostInt;
             nuevaPeticion.setTotalCost(totalCost);
             return userLoanRepository.save(nuevaPeticion);
         }

@@ -5,7 +5,6 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import FormControl from "@mui/material/FormControl";
-import MenuItem from "@mui/material/MenuItem";
 import SaveIcon from "@mui/icons-material/Save";
 
 const AddEditUser = () => {
@@ -20,10 +19,9 @@ const AddEditUser = () => {
 
   const saveUser = (e) => {
     e.preventDefault();
-
     const user = { rut, name, email, password, type, id };
     if (id) {
-      //Actualizar Datos user
+      // Actualizar Datos user
       userService
         .update(user)
         .then((response) => {
@@ -31,13 +29,10 @@ const AddEditUser = () => {
           navigate("/user/list");
         })
         .catch((error) => {
-          console.log(
-            "Ha ocurrido un error al intentar actualizar datos del User.",
-            error
-          );
+          console.log("Ha ocurrido un error al intentar actualizar datos del User.", error);
         });
     } else {
-      //Crear nuevo user
+      // Crear nuevo user
       userService
         .create(user)
         .then((response) => {
@@ -45,10 +40,7 @@ const AddEditUser = () => {
           navigate("/user/list");
         })
         .catch((error) => {
-          console.log(
-            "Ha ocurrido un error al intentar crear nuevo User.",
-            error
-          );
+          console.log("Ha ocurrido un error al intentar crear nuevo User.", error);
         });
     }
   };
@@ -63,7 +55,7 @@ const AddEditUser = () => {
           setName(user.data.name);
           setEmail(user.data.email);
           setPassword(user.data.password);
-          setType(user.data.type)
+          setType(user.data.type);
         })
         .catch((error) => {
           console.log("Se ha producido un error.", error);
@@ -71,17 +63,13 @@ const AddEditUser = () => {
     } else {
       setTitleUserForm("Nuevo User");
     }
-  }, []);
+  }, [id]); // Agregar 'id' como dependencia para el useEffect
+
+  const isUserEditable = type !== "0"; // Verifica si el tipo de usuario permite edición
 
   return (
-    <Box
-      display="flex"
-      flexDirection="column"
-      alignItems="center"
-      justifyContent="center"
-      component="form"
-    >
-      <h3> {titleUserForm} </h3>
+    <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" component="form">
+      <h3>{titleUserForm}</h3>
       <hr />
       <form>
         <FormControl fullWidth>
@@ -125,7 +113,7 @@ const AddEditUser = () => {
             variant="standard"
             onChange={(e) => setPassword(e.target.value)}
             type="password"
-            helperText= "Mínimo 6 caracteres"
+            helperText="Mínimo 6 caracteres"
           />
         </FormControl>
         <FormControl fullWidth>
@@ -136,6 +124,7 @@ const AddEditUser = () => {
             variant="standard"
             onChange={(e) => setType(e.target.value)}
             helperText="Tipo de usuario"
+            disabled={type === "0"} // Deshabilitar si el tipo es 0
           />
         </FormControl>
         <FormControl>
@@ -146,6 +135,7 @@ const AddEditUser = () => {
             onClick={(e) => saveUser(e)}
             style={{ marginLeft: "0.5rem" }}
             startIcon={<SaveIcon />}
+            disabled={!isUserEditable} // Deshabilitar el botón si el usuario no puede editar
           >
             Grabar
           </Button>
