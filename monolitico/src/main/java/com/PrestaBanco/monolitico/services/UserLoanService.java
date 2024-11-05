@@ -26,6 +26,9 @@ public class UserLoanService {
         return (ArrayList<UserLoanEntity>) userLoanRepository.findAll();
     }
 
+    public ArrayList<UserLoanEntity> getUserLoansByUserId(Long userId){
+        return (ArrayList<UserLoanEntity>) userLoanRepository.findByUserId(userId);
+    }
     public UserLoanEntity saveUserLoan(UserLoanEntity userLoan){
         return userLoanRepository.save(userLoan);
     }
@@ -93,12 +96,13 @@ public class UserLoanService {
             nuevaPeticion.setNumberOfQuotas(years * 12);
             nuevaPeticion.setFireInsurance(20000);
             double creditInsurance = amount * 0.0003;
-            Integer creditInsuranceInt = (int) creditInsurance;
+            int creditInsuranceInt = (int) creditInsurance;
             nuevaPeticion.setCreditInsurance(creditInsuranceInt);
             double administrationCost = amount * 0.01;
-            Integer administrationCostInt = (int) administrationCost;
+            int administrationCostInt = (int) administrationCost;
             nuevaPeticion.setAdministrationCost(administrationCostInt);
-            nuevaPeticion.setTotalCost(amount);
+            int totalCost = (amount + creditInsuranceInt + 20000) * nuevaPeticion.getNumberOfQuotas() + administrationCostInt;
+            nuevaPeticion.setTotalCost(totalCost);
             return userLoanRepository.save(nuevaPeticion);
         }
         return nuevaPeticion;

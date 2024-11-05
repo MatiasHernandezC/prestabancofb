@@ -22,7 +22,11 @@ public class UserLoanController {
     	List<UserLoanEntity> userLoans = userLoanService.getUserLoans();
 		return ResponseEntity.ok(userLoans);
 	}
-
+	@GetMapping("/userId/")
+	public ResponseEntity<List<UserLoanEntity>> listUserLoansByUserId(@RequestParam Long userId) {
+		List<UserLoanEntity> userLoans = userLoanService.getUserLoansByUserId(userId);
+		return ResponseEntity.ok(userLoans);
+	}
 	@GetMapping("/{id}")
 	public ResponseEntity<UserLoanEntity> getUserLoanById(@PathVariable Long id) {
 		UserLoanEntity userLoan = userLoanService.getUserLoanById(id);

@@ -7,6 +7,7 @@ import Login from "./components/Login";
 import UserList from './components/UsersList';
 import AddEditUser from './components/AddEditUser';
 import LoansList from './components/LoansList';
+import UserLoansList from './components/UserLoansList';
 import UserLoan from './components/UserLoan';
 import Register from './components/Register';
 import UploadDocument from './components/UploadDocument';
@@ -31,8 +32,8 @@ function App() {
               <Route path="/loans/list" element={<PrivateRoute user={user}><LoansList user={user}/></PrivateRoute>} />
               <Route path="/user/add" element={<PrivateRoute user={user}><AddEditUser /></PrivateRoute>} />
               <Route path="/user/edit/:id" element={<PrivateRoute user={user}><AddEditUser/></PrivateRoute>} />
-              <Route path="/userLoan/request" element={<UserLoan user={user}/>} />
-              <Route path="/userLoan/view" element={<PrivateRoute user={user}><UserLoan user={user}/></PrivateRoute>} />
+              <Route path="/userLoan/request" element={<PrivateRoute user={user}><UserLoan user={user}/></PrivateRoute>} />
+              <Route path="/userLoan/view" element={<PrivateRoute user={user}><UserLoansList user={user}/></PrivateRoute>} />
               <Route path="/register" element={<Register />} />
               <Route path="/uploadDocument" element={<PrivateRoute user={user}><UploadDocument user={user}/></PrivateRoute>} />
               <Route path="*" element={<NotFound />} />

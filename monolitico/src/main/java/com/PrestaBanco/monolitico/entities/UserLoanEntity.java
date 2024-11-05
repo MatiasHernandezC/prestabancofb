@@ -29,12 +29,13 @@ public class UserLoanEntity {
     // 8. Cancelada por el Cliente.
     // 9. En Desembolso.
     private int status;
-
+    // Monto pedido
     private int totalLoan;
     private int quota;
     private int numberOfQuotas;
     private int fireInsurance;
     private int creditInsurance;
     private int administrationCost;
+    // Monto a pagar
     private int totalCost;
 }

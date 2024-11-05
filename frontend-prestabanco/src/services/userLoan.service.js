@@ -11,6 +11,9 @@ const create = data => {
 const get = id => {
     return httpClient.get(`/api/v1/userLoans/${id}`);
 }
+const getByUserId = id => {
+    return httpClient.get(`/api/v1/userLoans/userId/${id}`);
+}
 const getRequirements = loanName => {
     return httpClient.get(`/api/v1/requirements/loanName/${loanName}`);
 }
@@ -25,4 +28,4 @@ const update = data => {
 const remove = id => {
     return httpClient.delete(`/api/v1/userLoans/${id}`);
 }
-export default { getAll, create, get, update, remove, getRequirements, requestLoan };
+export default { getAll, create, get, getByUserId, update, remove, getRequirements, requestLoan };

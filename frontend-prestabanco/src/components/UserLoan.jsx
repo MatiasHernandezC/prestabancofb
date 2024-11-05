@@ -57,14 +57,14 @@ const LoanList = ({user}) => {
   const requestLoan = () => {
     UserLoanService.requestLoan(loanName, loanAmount, years, interest, user.rut)
       .then((response) => {
-        setRequestResult(response.data);
-
+        setRequestResult(response.data.quota);
+        
         const seguroDegravamen = loanAmount * 0.0003;
         const seguroIncendio = 20000;
         const comisionAdministracion = loanAmount * 0.01;
         
         // Costo mensual total
-        const costoMensualTotal = response.data + seguroDegravamen + seguroIncendio;
+        const costoMensualTotal = response.data.quota + seguroDegravamen + seguroIncendio;
 
         // Costo total considerando el plazo
         const costoTotal = (costoMensualTotal * years * 12) + comisionAdministracion;
@@ -79,7 +79,7 @@ const LoanList = ({user}) => {
         });
       })
       .catch((error) => {
-        console.error("Error al pedir el préstamo", error);
+        console.error("Error al solicitar el préstamo", error);
       });
   };
 
@@ -138,7 +138,7 @@ const LoanList = ({user}) => {
       </TableContainer>
 
       <Box sx={{ p: 2, mt: 3 }}>
-        <Typography variant="h5" gutterBottom>Pedir un Préstamo</Typography>
+        <Typography variant="h5" gutterBottom>Solicitar un Préstamo</Typography>
         
         <FormControl fullWidth margin="normal">
           <InputLabel id="loan-select-label">Nombre del Préstamo</InputLabel>
@@ -178,7 +178,7 @@ const LoanList = ({user}) => {
           margin="normal"
         />
         <Button variant="contained" color="primary" onClick={requestLoan} sx={{ mt: 2 }}>
-          Simular Préstamo
+          Solicitar Préstamo
         </Button>
 
         <Box sx={{ mt: 2, p: 2, border: '1px solid', borderColor: requestResult !== null && requestResult !== 0 ? 'secondary.main' : 'error.main', borderRadius: 1, bgcolor: requestResult !== null && requestResult !== 0 ? 'rgba(100, 255, 218, 0.1)' : 'rgba(255, 0, 0, 0.1)' }}>
@@ -199,7 +199,7 @@ const LoanList = ({user}) => {
           </>
         ) : (
           <Typography variant="h6" color="error" sx={{ fontWeight: 'bold' }}>
-            Error al pedir el prestamo, revise que los datos esten correctos y que no le falten documentos
+            Error al solicitar el prestamo, revise que los datos esten correctos y que no le falten documentos
           </Typography>
         )}
       </Box>

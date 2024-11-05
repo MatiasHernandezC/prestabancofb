@@ -81,7 +81,7 @@ export default function Sidemenu({ open, toggleDrawer, user }) {
           <ListItemIcon>
             <PaidIcon />
           </ListItemIcon>
-          <ListItemText primary="Ver Préstamos" />
+          <ListItemText primary="Ver Estado Solicitudes" />
         </ListItemButton>
 
       <Divider />
