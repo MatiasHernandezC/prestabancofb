@@ -25,6 +25,7 @@ pipeline{
                         dir("frontend-prestabanco") {
                             bat "rd /s /q node_modules" // En caso de que haya un `node_modules` roto
                             // Instala dependencias y construye el frontend
+                            // npm run build -> carpeta dist
                             bat "npm install"
                             bat "npm install axios"
                             bat "npm install bootstrap"

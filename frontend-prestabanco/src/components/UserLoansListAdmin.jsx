@@ -113,6 +113,7 @@ const UserLoan = ({ user }) => {
         break;
       default:
         console.log("Estado desconocido, no se puede redirigir.");
+        break;
     }
   };
 
