@@ -5,7 +5,7 @@ import UserLoanService from "../services/userLoan.service";
 import LoanService from "../services/loan.service";
 import DocumentService from "../services/document.service";
 
-const documentReview = () => {
+const clientReview = () => {
   const { userLoanId } = useParams();
   const [userLoan, setUserLoan] = useState(null);
   const [loan, setLoan] = useState(null); // Estado para los detalles del préstamo
@@ -46,10 +46,10 @@ const documentReview = () => {
     fetchData();
   }, [userLoanId]);
 
-  const handleApproveDocumentation = async () => {
+  const handleApprove = async () => {
     try {
-      await UserLoanService.updateLoanStatus(userLoan, 3);
-      navigate(`/userLoan/listAll`);
+      await UserLoanService.updateLoanStatus(userLoan, 5);
+      navigate(`/userLoan/view`);
     } catch (error) {
       console.error("Error al aprobar la solicitud:", error);
     }
@@ -69,19 +69,27 @@ const documentReview = () => {
       default: return "Estado Desconocido.";
     }
   };
-  const handleIncorrectDocumentation = async () => {
-    try {
-      await UserLoanService.updateLoanStatus(userLoan, 2);
-      navigate(`/userLoan/listAll`);
-    } catch (error) {
-      console.error("Error al aprobar la solicitud con documentos faltantes:", error);
+  
+  const getStatusBackgroundColor = (status) => {
+    switch (status) {
+      case 0: return "grey.300"; // Gris para "Aún no Revisada"
+      case 1: return "warning.light"; // Amarillo claro para "En Revisión Inicial"
+      case 2: return "warning.light"; // Amarillo claro para "Pendiente de Documentación"
+      case 3: return "info.light"; // Azul claro para "En Evaluación"
+      case 4: return "info.light"; // Azul claro para "Pre-Aprobada"
+      case 5: return "info.light"; // Azul claro para "En Aprobación Final"
+      case 6: return "success.light"; // Verde claro para "Aprobada"
+      case 7: return "error.light"; // Rojo claro para "Rechazada"
+      case 8: return "error.light"; // Rojo claro para "Cancelada por el Cliente"
+      case 9: return "success.light"; // Verde claro para "En Desembolso"
+      default: return "white"; // Blanco para "Estado Desconocido"
     }
   };
 
   const handleReject = async () => {
     try {
-      await UserLoanService.updateLoanStatus(userLoan, 7);
-      navigate(`/userLoan/listAll`);
+      await UserLoanService.updateLoanStatus(userLoan, 8);
+      navigate(`/userLoan/view`);
     } catch (error) {
       console.error("Error al rechazar la solicitud:", error);
     }
@@ -103,7 +111,7 @@ const documentReview = () => {
     <Box sx={{ p: 2 }}>
       <Paper elevation={2} sx={{ p: 2 }}>
         <Typography variant="h4" gutterBottom>
-          Revisión de Documentos de la Solicitud
+          Revise su Solicitud a Prestamo
         </Typography>
         <Typography variant="h6">Detalles de la Solicitud:</Typography>
         <Grid
@@ -120,6 +128,15 @@ const documentReview = () => {
               <strong>Monto Solicitado:</strong> ${userLoan.totalLoan}
             </Typography>
             <Typography>
+              <strong>Monto Total de prestamo:</strong> ${userLoan.totalCost}
+            </Typography>
+            <Typography>
+              <strong>Mensualidad a pagar:</strong> ${userLoan.quota}
+            </Typography>
+            <Typography>
+              <strong>Cantidad de meses:</strong> {userLoan.numberOfQuotas} meses
+            </Typography>
+            <Typography sx={{ backgroundColor: getStatusBackgroundColor(userLoan.status), padding: "8px" }} >
               <strong>Estado:</strong> {getStatusText(userLoan.status)}
             </Typography>
           </Grid>
@@ -198,29 +215,25 @@ const documentReview = () => {
           }}
         >
           <Typography variant="h6">Acciones:</Typography>
-          <Button
-            variant="contained"
-            color="success"
-            onClick={handleApproveDocumentation}
-            sx={{ width: "50%" }} 
-          >
-            Pasar Solicitud a evaluación
-          </Button>
-          <Button
-            variant="contained"
-            color="warning"
-            onClick={handleIncorrectDocumentation}
-            sx={{ width: "50%" }} 
-          >
-            Faltan Documentos o hay Documentos Incorrectos
-          </Button>
+          {userLoan.status === 4 && (
+            <Button
+              variant="contained"
+              color="success"
+              onClick={handleApprove}
+              sx={{ width: "50%" }} 
+              
+            >
+              Aceptar Condiciones del prestamo
+            </Button>
+          )}
+          
           <Button
             variant="contained"
             color="error"
             onClick={handleReject}
             sx={{ width: "50%" }} 
           >
-            Rechazar Solicitud
+            Cancelar Solicitud a Prestamo
           </Button>
         </Box>
 
@@ -229,4 +242,4 @@ const documentReview = () => {
   );
 };
 
-export default documentReview;
+export default clientReview;

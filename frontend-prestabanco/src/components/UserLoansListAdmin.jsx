@@ -88,13 +88,13 @@ const UserLoan = ({ user }) => {
         navigate(`/review/documentation/${userLoanId}`);
         break;
       case 2: // Paso a 3 / 7 por eje / 8 por cliente 
-        navigate(`/review/evaluation/${userLoanId}`);
+        navigate(`/review/documentation/${userLoanId}`);
         break;
       case 3: // Paso a 4 / 7 por eje / 8 por cliente
-        navigate(`/review/pre-approved/${userLoanId}`);
+        navigate(`/review/evaluation/${userLoanId}`);
         break;
       case 4: // Paso a 5 / 7 por eje / 8 por cliente 
-        navigate(`/review/final-approval/${userLoanId}`);
+        console.log("Esperando Confirmación del Cliente.");
         break;
       case 5: // Paso a 6 / 7 por eje / 8 por cliente 
         navigate(`/review/approved/${userLoanId}`);
@@ -118,6 +118,7 @@ const UserLoan = ({ user }) => {
   };
 
   return (
+    
     <Box>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">

@@ -57,7 +57,21 @@ const InitialReview = () => {
   if (!userLoan) {
     return <Typography variant="h6">Solicitud no encontrada.</Typography>;
   }
-
+  const getStatusText = (status) => {
+    switch (status) {
+      case 0: return "Aún no Revisada.";
+      case 1: return "En Revisión Inicial.";
+      case 2: return "Pendiente de Documentación.";
+      case 3: return "En Evaluación.";
+      case 4: return "Pre-Aprobada.";
+      case 5: return "En Aprobación Final.";
+      case 6: return "Aprobada.";
+      case 7: return "Rechazada.";
+      case 8: return "Cancelada por el Cliente.";
+      case 9: return "En Desembolso.";
+      default: return "Estado Desconocido.";
+    }
+  };
   return (
     <Box sx={{ p: 2 }}>
       <Paper elevation={2} sx={{ p: 2 }}>
@@ -79,22 +93,35 @@ const InitialReview = () => {
               <strong>Monto Solicitado:</strong> ${userLoan.totalLoan}
             </Typography>
             <Typography>
-              <strong>Estado:</strong> En Revisión Inicial
+              <strong>Estado:</strong> {getStatusText(userLoan.status)}
             </Typography>
           </Grid>
         </Grid>
 
-        <Box sx={{ mt: 3 }}>
+        <Box
+          sx={{
+            mt: 3,
+            display: "flex", // Habilitar flexbox
+            flexDirection: "column", // Disposición en columna
+            alignItems: "center", // Centrar los botones
+            gap: 2, // Espacio entre los botones
+          }}
+        >
           <Typography variant="h6">Acciones:</Typography>
           <Button
             variant="contained"
             color="success"
             onClick={handleApprove}
-            sx={{ mr: 2 }}
+            sx={{ width: "50%" }}
           >
             Pasar Solicitud a Iniciar Revisión
           </Button>
-          <Button variant="contained" color="error" onClick={handleReject}>
+          <Button
+            variant="contained"
+            color="error"
+            onClick={handleReject}
+            sx={{ width: "50%" }}
+          >
             Rechazar Solicitud
           </Button>
         </Box>

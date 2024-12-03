@@ -15,6 +15,8 @@ import UploadDocument from './components/UploadDocument';
 import { useState } from 'react'
 import InitialReview from './components/InitialReview';
 import DocumentReview from './components/documentReview';
+import Evaluation from './components/evaluation';
+import ClientReview from './components/clientReview';
 function App() {
   const [user, setUser] = useState(null)
   const login = (userData) => {
@@ -42,7 +44,8 @@ function App() {
               <Route path="/uploadDocument" element={<PrivateRoute user={user}><UploadDocument user={user}/></PrivateRoute>} />
               <Route path="/review/initial/:userLoanId" element={<PrivateRoute user={user}><InitialReview user={user}/></PrivateRoute>} />
               <Route path="/review/documentation/:userLoanId" element={<PrivateRoute user={user}><DocumentReview user={user}/></PrivateRoute>} />
-              
+              <Route path="/review/evaluation/:userLoanId" element={<PrivateRoute user={user}><Evaluation user={user}/></PrivateRoute>} />
+              <Route path="/review/client/:userLoanId" element={<PrivateRoute user={user}><ClientReview user={user}/></PrivateRoute>} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </div>

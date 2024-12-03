@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import UserLoanService from "../services/userLoan.service";
 import LoanService from "../services/loan.service";
 import Table from "@mui/material/Table";
@@ -13,7 +14,7 @@ import Paper from "@mui/material/Paper";
 const UserLoan = ({ user }) => {
   const [Loans, setLoans] = useState([]);
   const [UserLoan, setUserLoan] = useState([]);
-
+  const navigate = useNavigate();
   const init = () => {
     UserLoanService.getByUserId(user.id)
       .then((response) => {
@@ -52,6 +53,9 @@ const UserLoan = ({ user }) => {
       case 9: return "En Desembolso.";
       default: return "Estado Desconocido.";
     }
+  };
+  const handleReviewRequest = (userLoanId) => {
+    navigate(`/review/client/${userLoanId}`);
   };
 
   const getStatusBackgroundColor = (status) => {
@@ -109,6 +113,9 @@ const UserLoan = ({ user }) => {
               <TableCell align="left" sx={{ fontWeight: "bold" }}>
                 Estado Solicitud
               </TableCell>
+              <TableCell align="center" sx={{ fontWeight: "bold" }}>
+                Acción
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -127,6 +134,17 @@ const UserLoan = ({ user }) => {
                   sx={{ backgroundColor: getStatusBackgroundColor(userLoan.status), padding: "8px" }} // Cambiar fondo de la celda según el estado
                 >
                   {getStatusText(userLoan.status)}
+                </TableCell>
+                <TableCell align="center">
+                  {userLoan.status !== 7 && userLoan.status !== 8 && (
+                    <Button 
+                      variant="contained" 
+                      color="primary" 
+                      onClick={() => handleReviewRequest(userLoan.id, userLoan.status)}
+                    >
+                      Revisar Solicitud
+                    </Button>
+                  )}
                 </TableCell>
               </TableRow>
             ))}

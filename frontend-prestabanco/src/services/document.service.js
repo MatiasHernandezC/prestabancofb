@@ -26,9 +26,11 @@ const getAllDocuments = () => {
 const getDocumentById = (id) => {
     return httpClient.get(`/api/v1/documents/${id}`, { headers: authHeader() });
 };
-
+const getDocumentByUserId = (id) => {
+    return httpClient.get(`/api/v1/documents/userId/${id}`, { headers: authHeader() });
+};
 const deleteDocument = (id) => {
     return httpClient.delete(`/api/v1/documents/${id}`, { headers: authHeader() });
 };
 
-export default { uploadDocument, getAllDocuments, getDocumentById, deleteDocument };
+export default { uploadDocument, getAllDocuments, getDocumentById, getDocumentByUserId, deleteDocument };
