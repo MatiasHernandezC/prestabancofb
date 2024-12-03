@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { Box, Typography, Button, Paper, Grid } from "@mui/material";
+import { Box, Typography, Button, Paper, Grid, List, ListItem, ListItemText, Link } from "@mui/material";
 import UserLoanService from "../services/userLoan.service";
 import LoanService from "../services/loan.service";
+import DocumentService from "../services/document.service";
 
 const InitialReview = () => {
   const { userLoanId } = useParams();
   const [userLoan, setUserLoan] = useState(null);
   const [loan, setLoan] = useState(null); // Estado para los detalles del préstamo
+  const [documents, setDocuments] = useState([]); // Estado para los documentos
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
@@ -22,8 +24,13 @@ const InitialReview = () => {
         // Obtener detalles del préstamo por loanId
         const loanResponse = await LoanService.get(userLoanData.loanId);
         setLoan(loanResponse.data);
+
+        // Obtener documentos del usuario
+        const documentsResponse = await DocumentService.getAllDocuments();
+        const userDocuments = documentsResponse.data.filter(doc => doc.userId === userLoanData.userId);
+        setDocuments(userDocuments);
       } catch (error) {
-        console.error("Error al cargar la solicitud o el tipo de préstamo:", error);
+        console.error("Error al cargar datos:", error);
       } finally {
         setLoading(false);
       }
@@ -32,9 +39,18 @@ const InitialReview = () => {
     fetchData();
   }, [userLoanId]);
 
-  const handleApprove = async () => {
+  const handleApproveDocumentation = async () => {
     try {
-      await UserLoanService.updateLoanStatus(userLoan, 1);
+      await UserLoanService.updateLoanStatus(userLoan, 3);
+      navigate(`/userLoan/listAll`);
+    } catch (error) {
+      console.error("Error al aprobar la solicitud:", error);
+    }
+  };
+
+  const handleIncorrectDocumentation = async () => {
+    try {
+      await UserLoanService.updateLoanStatus(userLoan, 2);
       navigate(`/userLoan/listAll`);
     } catch (error) {
       console.error("Error al aprobar la solicitud:", error);
@@ -84,15 +100,43 @@ const InitialReview = () => {
           </Grid>
         </Grid>
 
+        {/* Lista de Documentos */}
+        <Box sx={{ mt: 3 }}>
+          <Typography variant="h6">Documentos del Usuario:</Typography>
+          {documents.length > 0 ? (
+            <List>
+              {documents.map(doc => (
+                <ListItem key={doc.id}>
+                  <ListItemText primary={doc.type} />
+                  <Link href={`/api/v1/documents/${doc.id}`} target="_blank" rel="noopener">
+                    Ver Documento
+                  </Link>
+                </ListItem>
+              ))}
+            </List>
+          ) : (
+            <Typography>No hay documentos subidos para este usuario.</Typography>
+          )}
+        </Box>
+
+        {/* Acciones */}
         <Box sx={{ mt: 3 }}>
           <Typography variant="h6">Acciones:</Typography>
           <Button
             variant="contained"
             color="success"
-            onClick={handleApprove}
+            onClick={handleApproveDocumentation}
             sx={{ mr: 2 }}
           >
-            Pasar Solicitud a Iniciar Revisión
+            Pasar Solicitud a Documentación Correcta
+          </Button>
+          <Button
+            variant="contained"
+            color="error"
+            onClick={handleIncorrectDocumentation}
+            sx={{ mr: 2 }}
+          >
+            Pasar Solicitud a Documentación Incorrecta
           </Button>
           <Button variant="contained" color="error" onClick={handleReject}>
             Rechazar Solicitud

@@ -85,7 +85,7 @@ const UserLoan = ({ user }) => {
         navigate(`/review/initial/${userLoanId}`);
         break;
       case 1: // Paso a 3 / 7 por eje / 8 por cliente  
-        navigate(`/review/evaluation/${userLoanId}`);
+        navigate(`/review/documentation/${userLoanId}`);
         break;
       case 2: // Paso a 3 / 7 por eje / 8 por cliente 
         navigate(`/review/evaluation/${userLoanId}`);
@@ -168,18 +168,20 @@ const UserLoan = ({ user }) => {
                 <TableCell align="left">{userLoan.totalCost}</TableCell>
                 <TableCell 
                   align="left" 
-                  sx={{ backgroundColor: getStatusBackgroundColor(userLoan.status), padding: "8px" }} 
+                  sx={{ backgroundColor: getStatusBackgroundColor(userLoan.status), padding: "8px" }}
                 >
                   {getStatusText(userLoan.status)}
                 </TableCell>
                 <TableCell align="center">
-                  <Button 
-                    variant="contained" 
-                    color="primary" 
-                    onClick={() => handleReviewRequest(userLoan.id, userLoan.status)}
-                  >
-                    Revisar Solicitud
-                  </Button>
+                  {userLoan.status !== 7 && userLoan.status !== 8 && (
+                    <Button 
+                      variant="contained" 
+                      color="primary" 
+                      onClick={() => handleReviewRequest(userLoan.id, userLoan.status)}
+                    >
+                      Revisar Solicitud
+                    </Button>
+                  )}
                 </TableCell>
               </TableRow>
             ))}

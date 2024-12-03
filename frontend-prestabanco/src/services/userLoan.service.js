@@ -24,6 +24,9 @@ const requestLoan = (loanName, amount, years, interest, userRut) => {
     return httpClient.post(`/api/v1/userLoans/request/${loanName}/${amount}/${years}/${interest}/${userRut}`);
 }
 
+const updateLoanStatus = (data, status) => {
+    return httpClient.put(`/api/v1/userLoans/${status}`, data);
+}
 const update = data => {
     return httpClient.put('/api/v1/userLoans/', data);
 }
@@ -31,4 +34,4 @@ const update = data => {
 const remove = id => {
     return httpClient.delete(`/api/v1/userLoans/${id}`);
 }
-export default { getAll, create, get, getByUserId, getById, update, remove, getRequirements, requestLoan };
+export default { getAll, create, get, getByUserId, getById, update, remove, getRequirements, requestLoan, updateLoanStatus };

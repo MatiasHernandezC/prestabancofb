@@ -26,7 +26,11 @@ public class DocumentController {
 		DocumentEntity document = documentService.getDocumentById(id);
 		return ResponseEntity.ok(document);
 	}
-
+	@GetMapping("/userId/{id}")
+	public ResponseEntity<List<DocumentEntity>> getDocumentByUserId(@PathVariable Long id) {
+		List<DocumentEntity> document = documentService.getDocumentByUserId(id);
+		return ResponseEntity.ok(document);
+	}
 	@PostMapping("/")
 	public ResponseEntity<DocumentEntity> saveDocument( @RequestParam("file") MultipartFile file,
 														@RequestParam("userId") Long userId,

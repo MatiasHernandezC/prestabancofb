@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class DocumentService {
@@ -22,6 +23,9 @@ public class DocumentService {
 
     public DocumentEntity getDocumentById(Long id){
         return documentRepository.findById(id).get();
+    }
+    public List<DocumentEntity> getDocumentByUserId(Long id){
+        return documentRepository.findByUserId(id);
     }
 
     public DocumentEntity updateDocument(DocumentEntity document) {
