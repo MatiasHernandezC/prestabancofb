@@ -17,7 +17,7 @@ const UserLoan = ({ user }) => {
   const navigate = useNavigate();
 
   const init = () => {
-    UserLoanService.getByUserId(user.id)
+    UserLoanService.getAll()
       .then((response) => {
         console.log("Mostrando listado de todos los Préstamos disponibles.", response.data);
         setUserLoan(response.data);
@@ -81,26 +81,23 @@ const UserLoan = ({ user }) => {
     console.log("Revisar solicitud con ID:", userLoanId);
     // Redirigir a la vista correspondiente según el estado
     switch (status) {
-      case 0: // Paso a 1 / 7 por eje / 8 por cliente 
+      case 0: 
         navigate(`/review/initial/${userLoanId}`);
         break;
-      case 1: // Paso a 3 / 7 por eje / 8 por cliente  
+      case 1:   
         navigate(`/review/documentation/${userLoanId}`);
         break;
-      case 2: // Paso a 3 / 7 por eje / 8 por cliente 
+      case 2:  
         navigate(`/review/documentation/${userLoanId}`);
         break;
-      case 3: // Paso a 4 / 7 por eje / 8 por cliente
+      case 3: 
         navigate(`/review/evaluation/${userLoanId}`);
         break;
-      case 4: // Paso a 5 / 7 por eje / 8 por cliente 
+      case 4:  
         console.log("Esperando Confirmación del Cliente.");
         break;
-      case 5: // Paso a 6 / 7 por eje / 8 por cliente 
-        navigate(`/review/approved/${userLoanId}`);
-        break;
-      case 6: // Paso a 9 / 7 por eje / 8 por cliente
-        navigate(`/review/disbursed/${userLoanId}`);
+      case 5: 
+        navigate(`/review/confirmed/${userLoanId}`);
         break;
       case 7: //
         console.log("Cancelado por el ejecutivo.");
