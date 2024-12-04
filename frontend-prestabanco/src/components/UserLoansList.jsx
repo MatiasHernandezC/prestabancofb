@@ -136,7 +136,7 @@ const UserLoan = ({ user }) => {
                   {getStatusText(userLoan.status)}
                 </TableCell>
                 <TableCell align="center">
-                  {userLoan.status !== 7 && userLoan.status !== 8 && (
+                  {userLoan.status !== 7 && userLoan.status !== 8 && userLoan.status !== 9 && (
                     <Button 
                       variant="contained" 
                       color="primary" 

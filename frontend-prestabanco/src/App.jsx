@@ -17,6 +17,7 @@ import InitialReview from './components/InitialReview';
 import DocumentReview from './components/documentReview';
 import Evaluation from './components/evaluation';
 import ClientReview from './components/clientReview';
+import FinalReview from './components/finalReview';
 function App() {
   const [user, setUser] = useState(null)
   const login = (userData) => {
@@ -46,6 +47,7 @@ function App() {
               <Route path="/review/documentation/:userLoanId" element={<PrivateRoute user={user}><DocumentReview user={user}/></PrivateRoute>} />
               <Route path="/review/evaluation/:userLoanId" element={<PrivateRoute user={user}><Evaluation user={user}/></PrivateRoute>} />
               <Route path="/review/client/:userLoanId" element={<PrivateRoute user={user}><ClientReview user={user}/></PrivateRoute>} />
+              <Route path="/review/final/:userLoanId" element={<PrivateRoute user={user}><FinalReview user={user}/></PrivateRoute>} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </div>

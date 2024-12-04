@@ -97,7 +97,10 @@ const UserLoan = ({ user }) => {
         console.log("Esperando Confirmación del Cliente.");
         break;
       case 5: 
-        navigate(`/review/confirmed/${userLoanId}`);
+        navigate(`/review/final/${userLoanId}`);
+        break;
+      case 6:
+        console.log("Esperando confirmación de desembolso.");
         break;
       case 7: //
         console.log("Cancelado por el ejecutivo.");
@@ -106,7 +109,7 @@ const UserLoan = ({ user }) => {
         console.log("Cancelado por el cliente.");
         break;
       case 9: //  
-      console.log("En desembolso.");
+        console.log("En desembolso.");
         break;
       default:
         console.log("Estado desconocido, no se puede redirigir.");
@@ -171,7 +174,7 @@ const UserLoan = ({ user }) => {
                   {getStatusText(userLoan.status)}
                 </TableCell>
                 <TableCell align="center">
-                  {userLoan.status !== 7 && userLoan.status !== 8 && (
+                  {userLoan.status !== 7 && userLoan.status !== 8 && userLoan.status !== 9 && userLoan.status !== 6 &&(
                     <Button 
                       variant="contained" 
                       color="primary" 

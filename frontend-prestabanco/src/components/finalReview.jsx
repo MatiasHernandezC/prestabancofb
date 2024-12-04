@@ -5,7 +5,7 @@ import UserLoanService from "../services/userLoan.service";
 import LoanService from "../services/loan.service";
 import DocumentService from "../services/document.service";
 
-const clientReview = () => {
+const finalReview = () => {
   const { userLoanId } = useParams();
   const [userLoan, setUserLoan] = useState(null);
   const [loan, setLoan] = useState(null); // Estado para los detalles del préstamo
@@ -48,18 +48,10 @@ const clientReview = () => {
 
   const handleApprove = async () => {
     try {
-      await UserLoanService.updateLoanStatus(userLoan, 5);
+      await UserLoanService.updateLoanStatus(userLoan, 6);
       navigate(`/userLoan/view`);
     } catch (error) {
       console.error("Error al aprobar la solicitud:", error);
-    }
-  };
-  const handleApproveDesembolso = async () => {
-    try {
-      await UserLoanService.updateLoanStatus(userLoan, 9);
-      navigate(`/userLoan/view`);
-    } catch (error) {
-      console.error("Error al aprobar el desembolso:", error);
     }
   };
   const getStatusText = (status) => {
@@ -96,7 +88,7 @@ const clientReview = () => {
 
   const handleReject = async () => {
     try {
-      await UserLoanService.updateLoanStatus(userLoan, 8);
+      await UserLoanService.updateLoanStatus(userLoan, 7);
       navigate(`/userLoan/view`);
     } catch (error) {
       console.error("Error al rechazar la solicitud:", error);
@@ -223,7 +215,7 @@ const clientReview = () => {
           }}
         >
           <Typography variant="h6">Acciones:</Typography>
-          {userLoan.status === 4 && (
+          {userLoan.status === 5 && (
             <Button
               variant="contained"
               color="success"
@@ -231,27 +223,17 @@ const clientReview = () => {
               sx={{ width: "50%" }} 
               
             >
-              Aceptar Condiciones del prestamo
+              Aprobar Prestamo
             </Button>
           )}
-          {userLoan.status === 6 && (
-            <Button
-              variant="contained"
-              color="success"
-              onClick={handleApproveDesembolso}
-              sx={{ width: "50%" }} 
-              
-            >
-              Aceptar Desembolso del Prestamo
-            </Button>
-          )}
+          
           <Button
             variant="contained"
             color="error"
             onClick={handleReject}
             sx={{ width: "50%" }} 
           >
-            Cancelar Solicitud a Prestamo
+            Cancelar Prestamo
           </Button>
         </Box>
 
@@ -260,4 +242,4 @@ const clientReview = () => {
   );
 };
 
-export default clientReview;
+export default finalReview;
